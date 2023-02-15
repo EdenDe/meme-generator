@@ -32,6 +32,10 @@ function renderMeme() {
 }
 
 function addListeners() {
+	gCanvas.addEventListener('mousedown', onDown)
+	gCanvas.addEventListener('mousemove', onMove)
+	gCanvas.addEventListener('mouseup', onUp)
+
 	window.addEventListener('resize', () => onInit())
 }
 
@@ -46,6 +50,9 @@ function renderTxt() {
 	lines.forEach((line, index) => {
 		updateSelectedLineIdx(index)
 		drawText()
+		if (line.isFocus) {
+			markText(index)
+		}
 	})
 }
 
@@ -102,33 +109,52 @@ function onToggleTxt(diff) {
 	const newSelectedIdx = selectedLineIdx + diff
 	if (newSelectedIdx < 0 || newSelectedIdx >= lines.length) return
 	updateSelectedLineIdx(newSelectedIdx)
+	updateLine('isFocus', true)
 
-	const { txt, pos, size, align } = lines[newSelectedIdx]
-	gCtx.font = size + 'px'
-	const textWidth = gCtx.measureText(txt).width
-	const ratio = textWidth / gCanvas.width + 1
-
-	let startX = pos.x + textWidth * ratio
-	if (align === 'right') {
-		startX = pos.x - textWidth * ratio
-	} else if (align === 'center') {
-		startX = pos.x - (textWidth * ratio) / 2
-	}
-
-	//gCtx.strokeText(pos.x, pos.y)
-	gCtx.strokeStyle = 'white'
-	gCtx.strokeRect(startX, pos.y - size + 10, textWidth * 1.32, size)
-
-	//gCtx.strokeRect(startX - 10, pos.y - size, textWidth, size * 1.5)
-} //150 - 97 / 2 - 40/2 = 81.5
-// 100-40 = 60
-// 150+40 = 190
-// 40*1.5 = 60
-function moveTxt() {
-	// const dx = pos.x - gStartPos.x
-	// const dy = pos.y - gStartPos.y
-	// moveTxt(dx, dy)
+	renderCanvas()
 }
+
+function markText(selectedId) {
+	const { xStart, yStart, xEnd, yEnd } = getTextBlock(selectedId)
+	gCtx.strokeStyle = 'white'
+	gCtx.strokeRect(xStart, yStart, xEnd - xStart, yEnd - yStart)
+}
+
+function onDown(ev) {
+	const pos = getEvPos(ev)
+
+	if (!isTextClicked(pos)) return
+
+	setCurrentLineStartPos(pos)
+	document.body.style.cursor = 'grabbing'
+}
+
+function onMove(ev) {
+	const { isFocus } = getSelectedLine()
+	if (!isFocus) return
+
+	const pos = getEvPos(ev)
+
+	const startPos = getCurrentLineStartPos()
+
+	if (!startPos) return
+
+	// Calc the delta , the diff we moved
+	const dx = pos.x - startPos.x
+	const dy = pos.y - startPos.y
+	moveTxt(dx, dy)
+	// Save the last pos , we remember where we`ve been and move accordingly
+	setCurrentLineStartPos(pos)
+	// The canvas is render again after every move
+	renderCanvas()
+}
+
+function onUp() {
+	// console.log('Up')
+	updateLine('isFocus', false)
+	document.body.style.cursor = 'grab'
+}
+
 function onDeleteTxt() {}
 
 function resizeCanvas() {

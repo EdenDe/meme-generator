@@ -27,3 +27,7 @@
 	padding: 20px;
 	border-radius: 10px;
 }
+
+canvas {
+	font-size: 80px;
+}
