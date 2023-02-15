@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>meme-generator</title>
+		<link rel="stylesheet" href="/css/main.css" />
+	</head>
+	<body onload="onInit()">
+		<section class="image-gallery hide"></section>
+		<section class="meme-editor">
+			<div class="canvas-container">
+				<canvas id="my-canvas"> </canvas>
+			</div>
+			<section class="editor-options">
+				<input type="text" placeholder="insert text" name="meme-txt" />
+				<button class="fa plus" onclick="onAddtxt()"></button>
+				<button class="fa align-left" data-align="left" onclick="onChangeAlign(this)"></button>
+				<button class="fa align-center btn-align-active" data-align="center" onclick="onChangeAlign(this)"></button>
+				<button class="fa align-right" data-align="right" onclick="onChangeAlign(this)"></button>
+				<button class="fa plus" onclick="onChangeSize(1)">A</button>
+				<button class="fa minus" onclick="onChangeSize(-1)">A</button>
+				<button class="fa up-long" onclick="onToggleTxt(1)"></button>
+				<button class="fa down-long" onclick="onToggleTxt(-1)"></button>
+				<button class="fa trash-can" onclick="onDeleteTxt()"></button>
+				<select>
+					<option>Impact</option>
+				</select>
+				<input type="color" name="txt-color" onchange="onPickColor(this.value)" />
+			</section>
+		</section>
+
+		<script src="js/service/utils-service.js"></script>
+		<script src="js/service/meme-service.js"></script>
+		<script src="/js/meme-controller.js"></script>
+		<script src="/js/gallery-controller.js"></script>
+	</body>
+</html>
+

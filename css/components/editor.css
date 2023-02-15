@@ -1,0 +1,17 @@
+.meme-editor {
+	display: flex;
+}
+
+.canvas-container {
+	width: 400px;
+	height: 400px;
+}
+
+.editor-options {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+
+	flex-basis: 200px;
+}
