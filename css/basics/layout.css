@@ -1,0 +1,8 @@
+.main-layout {
+	display: grid;
+	grid-template-columns: minmax(auto, 20px) minmax(300px, 1fr) minmax(auto, 20px);
+}
+
+.main-layout > * {
+	grid-column: 2;
+}

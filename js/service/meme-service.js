@@ -1,6 +1,8 @@
 'use strict'
 
 const STORAGE_IMGS_KEY = 'imgsDB'
+const STORAGE_MEMES_KEY = 'memesDB'
+
 const gKeywordSearchCountMap = {}
 let gImgs
 let gMeme = {
@@ -9,6 +11,7 @@ let gMeme = {
 	currentLineStartPos: null,
 	lines: [],
 }
+let gMemes
 
 setNewLine({
 	txt: 'hey',
@@ -29,6 +32,7 @@ setNewLine({
 	isDrag: false,
 })
 _createGallery()
+_createMemes()
 
 function getImgs() {
 	return gImgs
@@ -43,8 +47,8 @@ function getSelectedLine() {
 }
 
 //to check the text dimentions
-function getTextBlock(selectedId) {
-	const { txt, pos, size, align } = getSelectedLine(selectedId)
+function getTextBlock() {
+	const { txt, pos, size, align } = getSelectedLine()
 	gCtx.font = size + 'px arial'
 	let textWidth = gCtx.measureText(txt).width
 	const ratio = textWidth / gCanvas.width + 1
@@ -77,13 +81,18 @@ function getCurrentLineStartPos() {
 function isTextClicked({ x, y }) {
 	for (let index = 0; index < gMeme.lines.length; index++) {
 		updateSelectedLineIdx(index)
-		const { xStart, yStart, xEnd, yEnd } = getTextBlock(index)
+		const { xStart, yStart, xEnd, yEnd } = getTextBlock()
 
 		if (xStart < x && x < xEnd && yStart < y && y < yEnd) {
 			return true
 		}
 	}
 	return false
+}
+
+function deleteTxt() {
+	gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+	updateSelectedLineIdx(gMeme.lines.length > 0 ? 0 : -1)
 }
 
 function setFocus() {
@@ -138,4 +147,17 @@ function _createGallery() {
 function moveTxt(dx, dy) {
 	gMeme.lines[gMeme.selectedLineIdx].pos.x += dx
 	gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
+}
+
+function _createMemes() {
+	gMemes = loadFromStorage(STORAGE_MEMES_KEY) || []
+}
+
+function saveMeme() {
+	gMemes.push(gMeme)
+	_saveMemeToStorage()
+}
+
+function _saveMemeToStorage() {
+	saveToStorage(STORAGE_MEMES_KEY, gMeme)
 }

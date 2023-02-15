@@ -1,0 +1,16 @@
+header {
+	display: flex;
+	justify-content: flex-end;
+}
+
+header nav {
+	justify-self: end;
+}
+
+.main-menu {
+	list-style: none;
+	display: flex;
+}
+.main-menu > li:first-child {
+	margin-inline-end: 30px;
+}

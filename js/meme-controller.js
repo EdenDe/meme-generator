@@ -151,7 +151,14 @@ function onUp() {
 	document.body.style.cursor = 'grab'
 }
 
-function onDeleteTxt() {}
+function onDeleteTxt() {
+	deleteTxt()
+	renderCanvas()
+}
+
+function onSaveMeme() {
+	saveMeme()
+}
 
 function resizeCanvas() {
 	const elContainer = document.querySelector('.canvas-container')

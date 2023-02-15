@@ -8,30 +8,41 @@
 		<link rel="stylesheet" href="/css/main.css" />
 	</head>
 	<body onload="onInit()">
-		<section class="image-gallery hide"></section>
-		<section class="meme-editor">
-			<div class="canvas-container">
-				<canvas id="my-canvas"> </canvas>
-			</div>
-			<section class="editor-options">
-				<input type="text" placeholder="insert text" name="meme-txt" />
-				<button class="fa plus" onclick="onAddtxt()"></button>
-				<button class="fa up-long" onclick="onToggleTxt(1)"></button>
-				<button class="fa down-long" onclick="onToggleTxt(-1)"></button>
-				<button class="fa trash-can" onclick="onDeleteTxt()"></button>
-				<div class="text-style-continer">
-					<button class="fa align-left" data-align="left" onclick="onChangeAlign(this)"></button>
-					<button class="fa align-center btn-align-active" data-align="center" onclick="onChangeAlign(this)"></button>
-					<button class="fa align-right" data-align="right" onclick="onChangeAlign(this)"></button>
-					<button class="fa plus" onclick="onChangeSize(1)">A</button>
-					<button class="fa minus" onclick="onChangeSize(-1)">A</button>
+		<header class="main-layout">
+			<nav>
+				<ul class="main-menu">
+					<li onclick="changeSection()">gallery</li>
+					<li onclick="changeSection()">memes</li>
+				</ul>
+			</nav>
+		</header>
+		<main class="main-layout">
+			<section class="image-gallery"></section>
+			<section class="meme-editor hide">
+				<div class="canvas-container">
+					<canvas id="my-canvas"> </canvas>
 				</div>
-				<select>
-					<option>Impact</option>
-				</select>
-				<input type="color" name="txt-color" onchange="onPickColor(this.value)" />
+				<section class="editor-options">
+					<input type="text" placeholder="insert text" name="meme-txt" />
+					<button class="fa plus" onclick="onAddtxt()"></button>
+					<button class="fa up-long" onclick="onToggleTxt(1)"></button>
+					<button class="fa down-long" onclick="onToggleTxt(-1)"></button>
+					<button class="fa trash-can" onclick="onDeleteTxt()"></button>
+					<div class="text-style-continer">
+						<button class="fa align-left" data-align="left" onclick="onChangeAlign(this)"></button>
+						<button class="fa align-center btn-align-active" data-align="center" onclick="onChangeAlign(this)"></button>
+						<button class="fa align-right" data-align="right" onclick="onChangeAlign(this)"></button>
+						<button class="fa plus" onclick="onChangeSize(1)">A</button>
+						<button class="fa minus" onclick="onChangeSize(-1)">A</button>
+					</div>
+					<select>
+						<option>Impact</option>
+					</select>
+					<input type="color" name="txt-color" onchange="onPickColor(this.value)" />
+					<button type="button" onclick="onSaveMeme()">save</button>
+				</section>
 			</section>
-		</section>
+		</main>
 
 		<script src="js/service/utils-service.js"></script>
 		<script src="js/service/meme-service.js"></script>

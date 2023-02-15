@@ -1,8 +1,34 @@
-/* @font-face {
-	font-family: lato;
-	src: url(/fonts/lato/Lato-Regular.ttf);
-} */
+/* FONTS */
 
+/* Cabin */
+@font-face {
+	font-family: cabin;
+	src: url(/fonts/Cabin/Cabin-Regular.ttf);
+}
+
+/* AMATIC_CS */
+@font-face {
+	font-family: amatic-regular;
+	src: url(/fonts/Amatic_SC/AmaticSC-Regular.ttf);
+}
+@font-face {
+	font-family: amatic-bold;
+	src: url(/fonts/Amatic_SC/AmaticSC-Bold.ttf);
+}
+
+/* FREDOKA */
+@font-face {
+	font-family: fredoka;
+	src: url(/fonts/Fredoka/Fredoka-Regular.ttf);
+}
+
+/* Rubik */
+@font-face {
+	font-family: rubik;
+	src: url(/fonts/Rubik/RubikWetPaint-Regular.ttf);
+}
+
+/* ICONS */
 @font-face {
 	font-family: fa;
 	src: url(/fonts/fontAwesome/fa-solid-900.ttf);
