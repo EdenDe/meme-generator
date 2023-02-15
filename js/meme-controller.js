@@ -82,7 +82,7 @@ function drawText() {
 function onChangeAlign(elBtn) {
 	document.querySelector('.btn-align-active').classList.remove('btn-align-active')
 	elBtn.classList.add('btn-align-active')
-	updateLine('align', elBtn.dataset.name)
+	updateLine('align', elBtn.dataset.align)
 	renderCanvas()
 }
 
@@ -99,11 +99,31 @@ function onPickColor(color) {
 
 function onToggleTxt(diff) {
 	const { selectedLineIdx, lines } = getMeme()
-	const newNum = selectedLineIdx + diff
-	if (newNum < 0 || newNum >= lines.length) return
-	updateSelectedLineIdx(newNum)
-}
+	const newSelectedIdx = selectedLineIdx + diff
+	if (newSelectedIdx < 0 || newSelectedIdx >= lines.length) return
+	updateSelectedLineIdx(newSelectedIdx)
 
+	const { txt, pos, size, align } = lines[newSelectedIdx]
+	gCtx.font = size + 'px'
+	const textWidth = gCtx.measureText(txt).width
+	const ratio = textWidth / gCanvas.width + 1
+
+	let startX = pos.x + textWidth * ratio
+	if (align === 'right') {
+		startX = pos.x - textWidth * ratio
+	} else if (align === 'center') {
+		startX = pos.x - (textWidth * ratio) / 2
+	}
+
+	//gCtx.strokeText(pos.x, pos.y)
+	gCtx.strokeStyle = 'white'
+	gCtx.strokeRect(startX, pos.y - size + 10, textWidth * 1.32, size)
+
+	//gCtx.strokeRect(startX - 10, pos.y - size, textWidth, size * 1.5)
+} //150 - 97 / 2 - 40/2 = 81.5
+// 100-40 = 60
+// 150+40 = 190
+// 40*1.5 = 60
 function moveTxt() {
 	// const dx = pos.x - gStartPos.x
 	// const dy = pos.y - gStartPos.y

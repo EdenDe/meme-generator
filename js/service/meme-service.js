@@ -9,6 +9,20 @@ let gMeme = {
 	lines: [],
 }
 
+setNewLine({
+	txt: 'shalom',
+	size: 40,
+	color: '#fff',
+	align: 'right',
+	pos: { x: 150, y: 100 },
+})
+setNewLine({
+	txt: 'hello',
+	size: 30,
+	color: 'red',
+	align: 'center',
+	pos: { x: 150, y: 250 },
+})
 _createGallery()
 
 function getImgs() {
@@ -38,7 +52,6 @@ function updateLine(key, value) {
 }
 
 function setNewLine(line) {
-	debugger
 	gMeme.selectedLineIdx++
 	gMeme.lines.push(line)
 }
