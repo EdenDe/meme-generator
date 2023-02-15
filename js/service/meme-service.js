@@ -11,12 +11,13 @@ let gMeme = {
 }
 
 setNewLine({
-	txt: 'shalom',
+	txt: 'hey',
 	size: 40,
 	color: '#fff',
-	align: 'right',
+	align: 'center',
 	pos: { x: 150, y: 100 },
 	isFocus: false,
+	isDrag: false,
 })
 setNewLine({
 	txt: 'hello',
@@ -25,6 +26,7 @@ setNewLine({
 	align: 'center',
 	pos: { x: 150, y: 250 },
 	isFocus: false,
+	isDrag: false,
 })
 _createGallery()
 
@@ -43,14 +45,14 @@ function getSelectedLine() {
 //to check the text dimentions
 function getTextBlock(selectedId) {
 	const { txt, pos, size, align } = getSelectedLine(selectedId)
-
+	gCtx.font = size + 'px arial'
 	let textWidth = gCtx.measureText(txt).width
 	const ratio = textWidth / gCanvas.width + 1
 	textWidth *= ratio
 
 	let xStart = pos.x + textWidth
 	if (align === 'right') xStart = pos.x - textWidth
-	if (align === 'center') xStart /= 2
+	if (align === 'center') xStart = pos.x - textWidth / 2
 
 	return {
 		xStart: xStart - 10,
@@ -73,18 +75,20 @@ function getCurrentLineStartPos() {
 }
 
 function isTextClicked({ x, y }) {
-	let isClicked = false
 	for (let index = 0; index < gMeme.lines.length; index++) {
 		updateSelectedLineIdx(index)
 		const { xStart, yStart, xEnd, yEnd } = getTextBlock(index)
 
 		if (xStart < x && x < xEnd && yStart < y && y < yEnd) {
-			updateLine('isFocus', true)
-			isClicked = true
-			return isClicked
+			return true
 		}
 	}
 	return false
+}
+
+function setFocus() {
+	gMeme.lines.forEach(line => (line.isFocus = false))
+	updateLine('isFocus', true)
 }
 
 function updateSelectedLineIdx(selectedLine) {

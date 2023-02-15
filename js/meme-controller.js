@@ -48,8 +48,7 @@ function renderTxt() {
 	const { lines } = getMeme()
 
 	lines.forEach((line, index) => {
-		updateSelectedLineIdx(index)
-		drawText()
+		drawText(line)
 		if (line.isFocus) {
 			markText(index)
 		}
@@ -73,12 +72,10 @@ function onAddtxt() {
 	const align = document.querySelector('.btn-align-active').dataset.align
 
 	setNewLine({ txt, size: 20, color, align, pos: { x: 50, y: 250 } })
-	drawText()
+	renderTxt()
 }
 
-function drawText() {
-	const { txt, size, color, pos, align } = getSelectedLine()
-
+function drawText({ txt, size, color, pos, align, isFocus }) {
 	gCtx.fillStyle = color
 	gCtx.font = `${size}px arial`
 	gCtx.textAlign = align
@@ -110,7 +107,6 @@ function onToggleTxt(diff) {
 	if (newSelectedIdx < 0 || newSelectedIdx >= lines.length) return
 	updateSelectedLineIdx(newSelectedIdx)
 	updateLine('isFocus', true)
-
 	renderCanvas()
 }
 
@@ -125,33 +121,33 @@ function onDown(ev) {
 
 	if (!isTextClicked(pos)) return
 
+	updateLine('isDrag', true)
+	setFocus()
+	renderCanvas()
+
 	setCurrentLineStartPos(pos)
 	document.body.style.cursor = 'grabbing'
 }
 
 function onMove(ev) {
-	const { isFocus } = getSelectedLine()
-	if (!isFocus) return
+	const { isDrag } = getSelectedLine()
+	if (!isDrag) return
 
 	const pos = getEvPos(ev)
-
 	const startPos = getCurrentLineStartPos()
 
 	if (!startPos) return
 
-	// Calc the delta , the diff we moved
 	const dx = pos.x - startPos.x
 	const dy = pos.y - startPos.y
+
 	moveTxt(dx, dy)
-	// Save the last pos , we remember where we`ve been and move accordingly
 	setCurrentLineStartPos(pos)
-	// The canvas is render again after every move
 	renderCanvas()
 }
 
 function onUp() {
-	// console.log('Up')
-	updateLine('isFocus', false)
+	updateLine('isDrag', false)
 	document.body.style.cursor = 'grab'
 }
 
