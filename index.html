@@ -8,11 +8,15 @@
 		<link rel="stylesheet" href="/css/main.css" />
 	</head>
 	<body onload="onInit()">
+		<div class="main-screen" onclick="onToggleHamburger()"></div>
+
 		<header class="main-layout">
 			<nav>
+				<div class="logo">Mimi Nehmadi</div>
+				<button class="btn-ham" onclick="onToggleHamburger()"></button>
 				<ul class="main-menu">
-					<li onclick="changeSection()">gallery</li>
-					<li onclick="changeSection()">memes</li>
+					<li class="active" onclick="changeSection(this)">gallery</li>
+					<li onclick="changeSection(this)">memes</li>
 				</ul>
 			</nav>
 		</header>
@@ -26,8 +30,7 @@
 					<input type="text" placeholder="insert text" name="meme-txt" />
 					<button class="fa plus" onclick="onAddtxt()"></button>
 					<button class="fa up-long" onclick="onToggleTxt(1)"></button>
-					<button class="fa down-long" onclick="onToggleTxt(-1)"></button>
-					<button class="fa trash-can" onclick="onDeleteTxt()"></button>
+					<button class="fa arrow-down-arrow-up" onclick="onToggleTxt(1)"></button>
 					<div class="text-style-continer">
 						<button class="fa align-left" data-align="left" onclick="onChangeAlign(this)"></button>
 						<button class="fa align-center btn-align-active" data-align="center" onclick="onChangeAlign(this)"></button>
@@ -35,9 +38,15 @@
 						<button class="fa plus" onclick="onChangeSize(1)">A</button>
 						<button class="fa minus" onclick="onChangeSize(-1)">A</button>
 					</div>
-					<select>
+					<select onchange="onChangeFont(this)">
 						<option>Impact</option>
+						<option>Amatic</option>
+						<option>Cabin</option>
 					</select>
+					<button class="btn" onclick="onFacebookShare()">F</button>
+					<a href="#" class="btn center" onclick="downloadImg(this)" download="my-img.jpg">download</a>
+					<label class="btn center" for="img-upload"> upload</label>
+					<input class="file-input" type="file" id="img-upload" name="image" onchange="onImgUpload(event)" hidden />
 					<input type="color" name="txt-color" onchange="onPickColor(this.value)" />
 					<button type="button" onclick="onSaveMeme()">save</button>
 				</section>
@@ -45,6 +54,8 @@
 		</main>
 
 		<script src="js/service/utils-service.js"></script>
+		<script src="js/service/img-service.js"></script>
+		<script src="js/service/facebook-share-service.js"></script>
 		<script src="js/service/meme-service.js"></script>
 		<script src="/js/meme-controller.js"></script>
 		<script src="/js/gallery-controller.js"></script>

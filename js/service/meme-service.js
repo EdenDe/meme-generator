@@ -18,6 +18,7 @@ setNewLine({
 	size: 40,
 	color: '#fff',
 	align: 'center',
+	fontFamily: 'Impact',
 	pos: { x: 150, y: 100 },
 	isFocus: false,
 	isDrag: false,
@@ -27,6 +28,7 @@ setNewLine({
 	size: 30,
 	color: 'red',
 	align: 'center',
+	fontFamily: 'Impact',
 	pos: { x: 150, y: 250 },
 	isFocus: false,
 	isDrag: false,
@@ -36,6 +38,10 @@ _createMemes()
 
 function getImgs() {
 	return gImgs
+}
+
+function getMemes() {
+	return gMemes
 }
 
 function getMeme() {
@@ -48,8 +54,8 @@ function getSelectedLine() {
 
 //to check the text dimentions
 function getTextBlock() {
-	const { txt, pos, size, align } = getSelectedLine()
-	gCtx.font = size + 'px arial'
+	const { txt, pos, size, align, fontFamily } = getSelectedLine()
+	gCtx.font = size + 'px ' + fontFamily
 	let textWidth = gCtx.measureText(txt).width
 	const ratio = textWidth / gCanvas.width + 1
 	textWidth *= ratio
@@ -155,9 +161,9 @@ function _createMemes() {
 
 function saveMeme() {
 	gMemes.push(gMeme)
-	_saveMemeToStorage()
+	_saveMemesToStorage()
 }
 
-function _saveMemeToStorage() {
-	saveToStorage(STORAGE_MEMES_KEY, gMeme)
+function _saveMemesToStorage() {
+	saveToStorage(STORAGE_MEMES_KEY, gMemes)
 }

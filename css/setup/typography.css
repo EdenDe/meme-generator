@@ -62,14 +62,18 @@
 	content: '\f53f';
 }
 
-.fa.up-long::before {
-	content: '\f30c';
-}
-
-.fa.down-long::before {
-	content: '\f309';
+.fa.arrow-down-arrow-up::before {
+	content: '\f883';
 }
 
 .fa.trash-can::before {
 	content: '\f2ed';
+}
+
+.fa.bars::before {
+	content: '\f0c9';
+}
+
+.fa.xmark::before {
+	content: '\f00d';
 }

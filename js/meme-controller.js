@@ -75,9 +75,9 @@ function onAddtxt() {
 	renderTxt()
 }
 
-function drawText({ txt, size, color, pos, align, isFocus }) {
+function drawText({ txt, size, color, pos, align, fontFamily }) {
 	gCtx.fillStyle = color
-	gCtx.font = `${size}px arial`
+	gCtx.font = `${size}px ${fontFamily}`
 	gCtx.textAlign = align
 
 	gCtx.fillText(txt, pos.x, pos.y)
@@ -158,6 +158,11 @@ function onDeleteTxt() {
 
 function onSaveMeme() {
 	saveMeme()
+}
+
+function onChangeFont(elSelect) {
+	updateLine('font', elSelect.value)
+	renderCanvas()
 }
 
 function resizeCanvas() {

@@ -6,6 +6,7 @@
 body {
 	font-size: 1rem;
 	margin: 0;
+	font-family: Impact;
 }
 
 img {
@@ -27,6 +28,8 @@ h6 {
 	text-transform: uppercase;
 }
 
-button {
+button,
+li,
+img {
 	cursor: pointer;
 }
