@@ -62,8 +62,8 @@
 	content: '\f53f';
 }
 
-.fa.arrow-down-arrow-up::before {
-	content: '\f883';
+.fa.arrows-up-down::before {
+	content: '\f07d';
 }
 
 .fa.trash-can::before {

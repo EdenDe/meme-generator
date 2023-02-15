@@ -7,6 +7,7 @@ body {
 	font-size: 1rem;
 	margin: 0;
 	font-family: Impact;
+	overflow-x: hidden;
 }
 
 img {

@@ -180,3 +180,12 @@ function getEvPos(ev) {
 	}
 	return pos
 }
+
+function renderImg(img) {
+	gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+}
+
+function downloadImg(elLink) {
+	const imgContent = gCanvas.toDataURL('image/jpeg')
+	elLink.href = imgContent
+}
