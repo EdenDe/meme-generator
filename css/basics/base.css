@@ -34,3 +34,9 @@ li,
 img {
 	cursor: pointer;
 }
+
+input {
+	font-family: inherit;
+	padding: 10px;
+	border-radius: 10px;
+}

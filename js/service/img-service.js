@@ -18,3 +18,28 @@ function loadImageFromInput(ev, onImageReady) {
 	}
 	reader.readAsDataURL(ev.target.files[0]) // Read the file we picked
 }
+
+function getKeywords() {
+	return imgKeyword
+}
+
+const imgKeyword = [
+	['politics', 'man', 'person'],
+	['animals', 'dogs', 'love'],
+	['animals', 'dogs', 'love', 'baby', 'sleep'],
+	['animals', 'cats', 'sleep'],
+	['success', 'cute', 'baby'],
+	['person', 'man'],
+	['funny', 'baby', 'person'],
+	['person', 'man'],
+	['funny', 'person', 'baby'],
+	['politics', 'man', 'person'],
+	['love', 'man', 'person'],
+	['person', 'man'],
+	['person', 'man'],
+	['person', 'man'],
+	['person', 'man'],
+	['person', 'man', 'funny'],
+	['person', 'man', 'politics'],
+	['person', 'man', 'toys'],
+]

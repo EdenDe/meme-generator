@@ -1,32 +1,11 @@
 'use strict'
 
-const memeStrings = [
-	'110 tabs open',
-	'not sure where the sound is coming from',
-	'enough for today',
-	'me after 10 lines of coding',
-	'imagine a world where',
-	'all sites are responsive',
-	'back-end developer',
-	'doing css',
-	'a bug in my code?',
-	"bitch, it's a feature",
-	'this guy is a programmer',
-	'see? nobody cares',
-	'actually using a debugger',
-	'why?!',
-	'me trying to use github',
-]
-let gCanvas
-let gCtx
-
-setImg('tB0Lb')
-renderMeme()
+let gCanvas = document.querySelector('canvas')
+let gCtx = gCanvas.getContext('2d')
 
 function renderMeme() {
-	gCanvas = document.querySelector('canvas')
-	gCtx = gCanvas.getContext('2d')
-
+	// 	 gCanvas= document.querySelector('canvas')
+	//  gCtx = gCanvas.getContext('2d')
 	resizeCanvas()
 	addListeners()
 }
@@ -69,9 +48,10 @@ function renderImgFromlocal() {
 function onAddtxt() {
 	const txt = document.querySelector('input[name="meme-txt"]').value
 	const color = document.querySelector('input[name="txt-color"]').value
+	const colorS = document.querySelector('input[name="stroke-color"]').value
 	const align = document.querySelector('.btn-align-active').dataset.align
 
-	setNewLine({ txt, size: 20, color, align, pos: { x: 50, y: 250 } })
+	setNewLine({ txt, size: 20, color, colorS, align })
 	renderTxt()
 }
 
@@ -112,8 +92,12 @@ function onToggleTxt(diff) {
 
 function markText(selectedId) {
 	const { xStart, yStart, xEnd, yEnd } = getTextBlock(selectedId)
+	gCtx.beginPath()
+	gCtx.rect(xStart - 10, yStart, xEnd - xStart + 20, yEnd - yStart + 10)
+	gCtx.fillStyle = 'rgba(225,225,225,0.2)'
 	gCtx.strokeStyle = 'white'
-	gCtx.strokeRect(xStart, yStart, xEnd - xStart, yEnd - yStart)
+	gCtx.stroke()
+	gCtx.fill()
 }
 
 function onDown(ev) {
@@ -163,6 +147,31 @@ function onSaveMeme() {
 function onChangeFont(elSelect) {
 	updateLine('font', elSelect.value)
 	renderCanvas()
+}
+
+function onPickStokeColor() {
+	updateLine('strokeColor', elSelect.value)
+	renderCanvas()
+}
+
+//to check the text dimentions
+function getTextBlock() {
+	const { txt, pos, size, align, fontFamily } = getSelectedLine()
+
+	gCtx.font = size + 'px ' + fontFamily
+	let textWidth = gCtx.measureText(txt).width
+	let textHeight = gCtx.measureText(txt).fontBoundingBoxAscent + gCtx.measureText(txt).actualBoundingBoxDescent
+
+	let xStart = pos.x
+	if (align === 'right') xStart -= textWidth
+	if (align === 'center') xStart -= textWidth / 2
+
+	return {
+		xStart: xStart,
+		yStart: pos.y - textHeight,
+		xEnd: xStart + textWidth,
+		yEnd: pos.y,
+	}
 }
 
 function resizeCanvas() {

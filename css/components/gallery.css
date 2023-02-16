@@ -3,8 +3,18 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	gap: 15px;
+
+	margin-top: 10px;
 }
 
 img:hover {
 	opacity: 0.7;
 }
+
+.gallery-options {
+	display: flex;
+}
+
+/* .gallery-options button{
+
+} */

@@ -23,10 +23,18 @@ function renderGallery() {
 		.join('')
 }
 
+// function onSearch(value){
+// 	setSearchFilter(value)
+// }
+
 function onImg(imgId) {
+	setImg(imgId)
+	switchToMemeEditor()
+}
+
+function switchToMemeEditor() {
 	document.querySelector('.meme-editor').classList.remove('hide')
 	document.querySelector('.image-gallery').classList.add('hide')
-	setImg(imgId)
 	renderMeme()
 }
 
@@ -46,4 +54,28 @@ function changeSection(elI) {
 
 function onToggleHamburger() {
 	document.body.classList.toggle('menu-open')
+}
+
+function onFlexible() {
+	let randomNum
+	//how many text lines, one or two
+	randomNum = getRandomInt(1, 3)
+	const lines = getMemeStrings()
+
+	for (let index = 0; index < randomNum; index++) {
+		setNewLine({
+			txt: lines[getRandomInt(0, lines.length)],
+			size: getRandomInt(15, 35),
+			fontColor: getRandomColor(),
+			strokeColor: getRandomColor(),
+			align: 'center',
+		})
+	}
+
+	//get random img
+	const imgs = getImgs()
+	randomNum = getRandomInt(0, imgs.length)
+	setImg(imgs[randomNum].id)
+
+	switchToMemeEditor()
 }

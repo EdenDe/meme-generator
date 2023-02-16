@@ -2,6 +2,23 @@
 
 const STORAGE_IMGS_KEY = 'imgsDB'
 const STORAGE_MEMES_KEY = 'memesDB'
+const memeStrings = [
+	'110 tabs open',
+	'not sure where the sound is coming from',
+	'enough for today',
+	'me after 10 lines of coding',
+	'imagine a world where',
+	'all sites are responsive',
+	'back-end developer',
+	'doing css',
+	'a bug in my code?',
+	"bitch, it's a feature",
+	'this guy is a programmer',
+	'see? nobody cares',
+	'actually using a debugger',
+	'why?!',
+	'me trying to use github',
+]
 
 const gKeywordSearchCountMap = {}
 let gImgs
@@ -13,28 +30,28 @@ let gMeme = {
 }
 let gMemes
 
-setNewLine({
-	txt: 'hey',
-	size: 40,
-	color: '#fff',
-	align: 'center',
-	fontFamily: 'Impact',
-	pos: { x: 150, y: 100 },
-	isFocus: false,
-	isDrag: false,
-})
-setNewLine({
-	txt: 'hello',
-	size: 30,
-	color: 'red',
-	align: 'center',
-	fontFamily: 'Impact',
-	pos: { x: 150, y: 250 },
-	isFocus: false,
-	isDrag: false,
-})
+// setNewLine({
+// 	txt: 'hey',
+// 	size: 40,
+// 	color: '#fff',
+// 	strokeColor: 'grey',
+// 	align: 'left',
+// 	fontFamily: 'Impact',
+// })
+// setNewLine({
+// 	txt: 'hello',
+// 	size: 30,
+// 	color: 'red',
+// 	strokeColor: 'blue',
+// 	align: 'right',
+// 	fontFamily: 'Impact',
+// })
 _createGallery()
 _createMemes()
+
+function getMemeStrings() {
+	return memeStrings
+}
 
 function getImgs() {
 	return gImgs
@@ -50,26 +67,6 @@ function getMeme() {
 
 function getSelectedLine() {
 	return gMeme.lines[gMeme.selectedLineIdx]
-}
-
-//to check the text dimentions
-function getTextBlock() {
-	const { txt, pos, size, align, fontFamily } = getSelectedLine()
-	gCtx.font = size + 'px ' + fontFamily
-	let textWidth = gCtx.measureText(txt).width
-	const ratio = textWidth / gCanvas.width + 1
-	textWidth *= ratio
-
-	let xStart = pos.x + textWidth
-	if (align === 'right') xStart = pos.x - textWidth
-	if (align === 'center') xStart = pos.x - textWidth / 2
-
-	return {
-		xStart: xStart - 10,
-		yStart: pos.y - size,
-		xEnd: xStart + textWidth + 10,
-		yEnd: pos.y + 10,
-	}
 }
 
 function setImg(imgId) {
@@ -118,14 +115,20 @@ function updateLine(key, value) {
 
 function setNewLine(line) {
 	gMeme.selectedLineIdx++
+	let y = 150
+
+	if (gMeme.selectedLineIdx === 0) y = 80
+	else if (gMeme.selectedLineIdx === 1) y = 250
+
+	if (!line.fontFamily) line.fontFamily = 'Impact'
+	line.pos = {
+		x: 150,
+		y,
+	}
+	line.isFocus = false
+	line.isDrag = false
+
 	gMeme.lines.push(line)
-}
-
-function updateKeyword(imgId, keyword) {
-	const img = getImgById(imgId)
-	if (!img) return
-
-	img.keywords.push(keyword)
 }
 
 function _saveImgsToStorage() {
@@ -139,12 +142,13 @@ function getImgById(id) {
 function _createGallery() {
 	gImgs = loadFromStorage(STORAGE_IMGS_KEY) || []
 	if (gImgs.length > 0) return
+	const keywords = getKeywords()
 
 	for (let index = 1; index <= 18; index++) {
 		gImgs.push({
 			id: makeId(),
 			imgSrc: `/img/${index}.jpg`,
-			keywords: [],
+			keywords: keywords[index - 1],
 		})
 	}
 	_saveImgsToStorage()

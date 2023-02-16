@@ -9,7 +9,6 @@
 	</head>
 	<body onload="onInit()">
 		<div class="main-screen" onclick="onToggleHamburger()"></div>
-
 		<header class="main-layout">
 			<nav>
 				<div class="logo">Mimi Nehmadi</div>
@@ -21,6 +20,11 @@
 			</nav>
 		</header>
 		<main class="main-layout">
+			<section class="gallery-options">
+				<input placeholder="search" />
+				<div class="key-words"></div>
+				<button onclick="onFlexible()">I'm flexible</button>
+			</section>
 			<section class="image-gallery"></section>
 			<section class="meme-editor hide">
 				<div class="canvas-container">
@@ -43,11 +47,13 @@
 						<option>Amatic</option>
 						<option>Cabin</option>
 					</select>
+					<input type="color" name="txt-color" onchange="onPickColor(this.value)" />
+					<input type="color" name="stroke-color" onchange="onPickStokeColor(this.value)" />
+
 					<button class="btn" onclick="onFacebookShare()">F</button>
 					<a href="#" class="btn center" onclick="downloadImg(this)" download="my-img.jpg">download</a>
 					<label class="btn center" for="img-upload"> upload</label>
 					<input class="file-input" type="file" id="img-upload" name="image" onchange="onImgUpload(event)" hidden />
-					<input type="color" name="txt-color" onchange="onPickColor(this.value)" />
 					<button type="button" onclick="onSaveMeme()">save</button>
 				</section>
 			</section>
