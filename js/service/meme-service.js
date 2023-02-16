@@ -28,7 +28,7 @@ let gMeme = {
 	currentLineStartPos: null,
 	lines: [],
 }
-let gMemes
+let gSavedMemeDataURL
 let gSearchImgFilter
 
 _createGallery()
@@ -52,7 +52,7 @@ function getImgById(id) {
 }
 
 function getMemes() {
-	return gMemes
+	return gSavedMemeDataURL
 }
 
 function getMeme() {
@@ -165,7 +165,7 @@ function _createGallery() {
 	for (let index = 1; index <= 18; index++) {
 		gImgs.push({
 			id: makeId(),
-			imgSrc: `/img/${index}.jpg`,
+			imgSrc: `img/${index}.jpg`,
 			keywords: keywords[index - 1],
 		})
 	}
@@ -178,14 +178,17 @@ function moveTxt(dx, dy) {
 }
 
 function _createMemes() {
-	gMemes = loadFromStorage(STORAGE_MEMES_KEY) || []
+	gSavedMemeDataURL = loadFromStorage(STORAGE_MEMES_KEY) || []
 }
 
-function saveMeme() {
-	gMemes.push(gMeme)
+function saveMeme(memeDataURL) {
+	gSavedMemeDataURL.push({
+		id: makeId(),
+		imgSrc: memeDataURL,
+	})
 	_saveMemesToStorage()
 }
 
 function _saveMemesToStorage() {
-	saveToStorage(STORAGE_MEMES_KEY, gMemes)
+	saveToStorage(STORAGE_MEMES_KEY, gSavedMemeDataURL)
 }

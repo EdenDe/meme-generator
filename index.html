@@ -14,15 +14,15 @@
 				<div class="logo">Mimi Nehmadi</div>
 				<button class="btn-ham" onclick="onToggleHamburger()"></button>
 				<ul class="main-menu">
-					<li class="active" onclick="changeSection(this)">gallery</li>
-					<li onclick="changeSection(this)">memes</li>
+					<li class="active" data-show="gallery" onclick="onChangeSection(this)">gallery</li>
+					<li data-show="memes" onclick="onChangeSection(this)">memes</li>
 				</ul>
 			</nav>
 		</header>
 		<main class="main-layout">
 			<section class="gallery">
 				<section class="gallery-options">
-					<input placeholder="search" list="keywords" oninput="onFilter(this.value)" />
+					<input class="fa magnifying-glass" placeholder="search" list="keywords" oninput="onFilter(this.value)" />
 					<datalist id="keywords"> </datalist>
 					<div class="keywords"></div>
 					<button onclick="onFlexible()">I'm flexible</button>
@@ -35,7 +35,7 @@
 					<canvas id="my-canvas"> </canvas>
 				</div>
 				<section class="editor-options">
-					<input type="text" placeholder="insert text" name="meme-txt" />
+					<input type="text" placeholder="insert text" name="meme-txt" oninput="onChangeTxt(this.value)" />
 					<button class="fa plus" onclick="onAddtxt()"></button>
 					<button class="fa trash-can" onclick="onDeleteTxt()"></button>
 					<button class="fa arrows-up-down" onclick="onToggleTxt(1)"></button>
@@ -52,8 +52,8 @@
 						<option>Cabin</option>
 					</select>
 
-					<button class="fa palette"><label for="txt-color"></label></button>
-					<button><label for="stroke-color">S </label></button>
+					<button class="fa palette"><label name="textColor" for="txt-color"> color </label></button>
+					<button><label name="strokeColor" for="stroke-color">S </label></button>
 					<input type="color" id="txt-color" name="txt-color" onchange="onPickColor(this.value)" hidden />
 					<input type="color" id="stroke-color" name="stroke-color" onchange="onPickStokeColor(this.value)" hidden />
 
@@ -61,7 +61,7 @@
 					<a href="#" class="btn center" onclick="downloadImg(this)" download="my-img.jpg">download</a>
 					<label class="btn center" for="img-upload"> upload</label>
 					<input class="file-input" type="file" id="img-upload" name="image" onchange="onImgUpload(event)" hidden />
-					<button type="button" onclick="onSaveMeme()">save</button>
+					<button class="btn center" onclick="onSaveMeme(this)">save</button>
 				</section>
 			</section>
 		</main>

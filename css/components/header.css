@@ -1,7 +1,11 @@
 header {
-	background-color: pink;
-	margin-bottom: 20px;
-	height: 50px;
+	margin: 15px;
+	padding: 10px;
+
+	background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
+	border-radius: 37px;
+	color: var(--grey-clr-2);
+	font-family: var(--poppins-med);
 }
 
 header nav {
@@ -12,6 +16,7 @@ header nav {
 
 .logo {
 	font-size: 30px;
+	text-transform: uppercase;
 }
 
 .main-menu {
@@ -23,8 +28,15 @@ header nav {
 	margin-inline-end: 30px;
 }
 
-.main-menu > li:hover {
-	opacity: 0.5;
+.main-menu > li {
+	padding: 5px 20px;
+	border-radius: 20px;
+	text-transform: capitalize;
+}
+
+.main-menu > li.active {
+	background-color: var(--grey-clr-2);
+	color: var(--blue-clr-2);
 }
 
 .btn-ham {
@@ -36,11 +48,9 @@ header nav {
 body.menu-open .btn-ham {
 	background-color: transparent;
 	border: none;
-	color: var(--clr-7);
 }
 
 body.menu-open .main-menu > * {
-	background-color: var(--clr-3);
 	padding: 5px;
 	width: fit-content;
 	height: fit-content;

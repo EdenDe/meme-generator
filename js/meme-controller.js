@@ -3,10 +3,6 @@
 let gCanvas
 let gCtx
 
-//q- git page looks bad;
-//q- where do I get stickers from?
-//q- when I save meme what do I do with it?
-
 function renderMeme() {
 	gCanvas = document.querySelector('canvas')
 	gCtx = gCanvas.getContext('2d')
@@ -84,6 +80,7 @@ function onChangeSize(change) {
 }
 
 function onPickColor(color) {
+	debugger
 	updateLine('color', color)
 	renderCanvas()
 }
@@ -94,6 +91,11 @@ function onToggleTxt() {
 	else updateSelectedLineIdx(selectedLineIdx + 1)
 
 	updateLine('isFocus', true)
+	renderCanvas()
+}
+
+function onChangeTxt(txt) {
+	updateLine('txt', txt)
 	renderCanvas()
 }
 
@@ -111,6 +113,8 @@ function onDown(ev) {
 
 	updateLine('isDrag', true)
 	setFocus()
+	const { txt } = getSelectedLine()
+	document.querySelector('input[name="meme-txt"]').value = txt
 	renderCanvas()
 
 	setCurrentLineStartPos(pos)
@@ -145,7 +149,8 @@ function onDeleteTxt() {
 }
 
 function onSaveMeme() {
-	saveMeme()
+	const imgContent = gCanvas.toDataURL('image/jpeg')
+	saveMeme(imgContent)
 }
 
 function onChangeFont(elSelect) {

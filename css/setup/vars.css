@@ -1,7 +1,21 @@
 :root {
 	/* colors */
+	/* grey */
+	--grey-clr2: #22252c;
+	--grey-clr1: #383b42;
+	--grey-clr-base: #3d3d3d;
+	--grey-clr-1: #ebeef3;
+	--grey-clr-2: #fefefe;
+	--grey-clr-3: #ffffff;
 
-	--clr-base: #f07dee;
+	/* blue */
+	--blue-clr2: #3e4b68;
+	--blue-clr1: #5970c1;
+	--blue-clr-base: #1e7cd3;
+	--blue-clr-1: #19a59f;
+	--blue-clr-2: #21ac91;
 
-	/* font-family */
+	/* FONTS */
+	--poppins-light: 'Poppins light', sans-serif;
+	--poppins-med: 'poppins medium', sans-serif;
 }

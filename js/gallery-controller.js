@@ -32,7 +32,7 @@ function createKeywordMap() {
 	let maxNum = Math.max(...Object.values(keywords))
 	if (maxNum === 0) maxNum = 1
 
-	let maxFont = 42
+	let maxFont = 30
 	let minFont = 7
 
 	let string = ''
@@ -67,16 +67,17 @@ function onImg(imgId) {
 }
 
 function switchToMemeEditor() {
+	document.querySelector('li.active').classList.remove('active')
 	document.querySelector('.meme-editor').classList.remove('hide')
 	document.querySelector('.gallery').classList.add('hide')
 
 	renderMeme()
 }
 
-function changeSection(elI) {
+function onChangeSection(elI) {
 	document.querySelector('li.active').classList.remove('active')
 	elI.classList.add('active')
-	gSection = elI.innerText
+	gSection = elI.dataset.show
 
 	const elGallery = document.querySelector('.gallery')
 

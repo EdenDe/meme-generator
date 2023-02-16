@@ -1,4 +1,4 @@
-@media (max-width: 400px) {
+@media (max-width: 550px) {
 	.btn-ham {
 		display: flex;
 		position: absolute;
@@ -7,17 +7,29 @@
 		justify-content: center;
 		align-self: center;
 
-		width: 35px;
-		height: 35px;
-		font-size: 30px;
+		width: 40px;
+		height: 40px;
+		font-size: 20px;
+		border-radius: 20px;
+		padding: 10px;
 
-		background-color: transparent;
+		background-color: white;
 		border: none;
+	}
+
+	body {
+		overflow-y: auto;
+	}
+
+	header {
+		margin: 0 0 15px;
+		border-radius: 0;
 	}
 
 	.btn-ham::before {
 		content: '\f0c9';
 		font-family: fa;
+		color: var(--blue-clr-2);
 	}
 
 	body.menu-open .btn-ham {
@@ -46,6 +58,18 @@
 		align-items: center;
 
 		height: 40%;
-		background-color: lightpink;
+		width: 50%;
+		background-color: var(--grey-clr1);
+		border-radius: 10px;
+	}
+
+	.image-gallery {
+		overflow-y: hidden;
+		gap: 10px;
+		height: auto;
+	}
+
+	.image-gallery > img {
+		flex: 1;
 	}
 }
