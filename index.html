@@ -21,8 +21,9 @@
 		</header>
 		<main class="main-layout">
 			<section class="gallery-options">
-				<input placeholder="search" />
-				<div class="key-words"></div>
+				<input placeholder="search" list="keywords" oninput="onFilter(this.value)" />
+				<datalist id="keywords"> </datalist>
+				<div class="keywords"></div>
 				<button onclick="onFlexible()">I'm flexible</button>
 			</section>
 			<section class="image-gallery"></section>

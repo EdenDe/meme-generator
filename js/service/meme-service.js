@@ -20,7 +20,7 @@ const memeStrings = [
 	'me trying to use github',
 ]
 
-const gKeywordSearchCountMap = {}
+let gKeywordSearchCountMap = { funny: 4, person: 2, animals: 10 }
 let gImgs
 let gMeme = {
 	selectedImgId: null,
@@ -29,6 +29,7 @@ let gMeme = {
 	lines: [],
 }
 let gMemes
+let gSearchImgFilter
 
 // setNewLine({
 // 	txt: 'hey',
@@ -49,12 +50,21 @@ let gMemes
 _createGallery()
 _createMemes()
 
+function getKeywordSearchCountMap() {
+	return gKeywordSearchCountMap
+}
+
 function getMemeStrings() {
 	return memeStrings
 }
 
 function getImgs() {
-	return gImgs
+	if (!gSearchImgFilter) return gImgs
+	return gImgs.filter(img => img.keywords.some(word => word.startsWith(gSearchImgFilter)))
+}
+
+function getImgById(id) {
+	return gImgs.find(img => img.id === id)
 }
 
 function getMemes() {
@@ -131,12 +141,17 @@ function setNewLine(line) {
 	gMeme.lines.push(line)
 }
 
-function _saveImgsToStorage() {
-	saveToStorage(STORAGE_IMGS_KEY, gImgs)
+function setSearchFilter(value) {
+	gSearchImgFilter = value
+	const keywords = getUniqueKeywordList()
+	if (!keywords.includes(value)) return
+
+	if (!gKeywordSearchCountMap[value]) gKeywordSearchCountMap[value] = 0
+	gKeywordSearchCountMap[value]++
 }
 
-function getImgById(id) {
-	return gImgs.find(img => img.id === id)
+function _saveImgsToStorage() {
+	saveToStorage(STORAGE_IMGS_KEY, gImgs)
 }
 
 function _createGallery() {

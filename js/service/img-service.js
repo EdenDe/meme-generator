@@ -4,23 +4,32 @@ function onImgUpload(ev) {
 	loadImageFromInput(ev, renderImg)
 }
 
-// CallBack func will run on success load of the img
 function loadImageFromInput(ev, onImageReady) {
 	const reader = new FileReader()
-	// After we read the file
+
 	reader.onload = function (event) {
-		let img = new Image() // Create a new html img element
-		img.src = event.target.result // Set the img src to the img file we read
+		let img = new Image()
+		img.src = event.target.result
 		setImg(event.target.result)
-		// Run the callBack func, To render the img on the canvas
-		// Can also do it this way:
 		img.onload = () => onImageReady(img)
 	}
-	reader.readAsDataURL(ev.target.files[0]) // Read the file we picked
+	reader.readAsDataURL(ev.target.files[0])
 }
 
 function getKeywords() {
 	return imgKeyword
+}
+
+function getUniqueKeywordList() {
+	let keywords = getKeywords()
+	keywords = keywords.flat()
+
+	const filterdKeyWords = []
+	keywords.forEach(keyword => {
+		if (!filterdKeyWords.includes(keyword)) filterdKeyWords.push(keyword)
+	})
+
+	return filterdKeyWords
 }
 
 const imgKeyword = [
