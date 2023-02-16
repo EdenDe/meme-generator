@@ -61,12 +61,15 @@ function onFilter(value) {
 
 function onImg(imgId) {
 	setImg(imgId)
+	deleteLines()
+	setRandomLines(2)
 	switchToMemeEditor()
 }
 
 function switchToMemeEditor() {
 	document.querySelector('.meme-editor').classList.remove('hide')
-	document.querySelector('.image-gallery').classList.add('hide')
+	document.querySelector('.gallery').classList.add('hide')
+
 	renderMeme()
 }
 
@@ -75,7 +78,7 @@ function changeSection(elI) {
 	elI.classList.add('active')
 	gSection = elI.innerText
 
-	const elGallery = document.querySelector('.image-gallery')
+	const elGallery = document.querySelector('.gallery')
 
 	if (elGallery.classList.contains('hide')) {
 		elGallery.classList.remove('hide')
@@ -92,17 +95,7 @@ function onFlexible() {
 	let randomNum
 	//how many text lines, one or two
 	randomNum = getRandomInt(1, 3)
-	const lines = getMemeStrings()
-
-	for (let index = 0; index < randomNum; index++) {
-		setNewLine({
-			txt: lines[getRandomInt(0, lines.length)],
-			size: getRandomInt(15, 35),
-			fontColor: getRandomColor(),
-			strokeColor: getRandomColor(),
-			align: 'center',
-		})
-	}
+	setRandomLines(randomNum)
 
 	//get random img
 	const imgs = getImgs()

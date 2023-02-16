@@ -31,22 +31,6 @@ let gMeme = {
 let gMemes
 let gSearchImgFilter
 
-// setNewLine({
-// 	txt: 'hey',
-// 	size: 40,
-// 	color: '#fff',
-// 	strokeColor: 'grey',
-// 	align: 'left',
-// 	fontFamily: 'Impact',
-// })
-// setNewLine({
-// 	txt: 'hello',
-// 	size: 30,
-// 	color: 'red',
-// 	strokeColor: 'blue',
-// 	align: 'right',
-// 	fontFamily: 'Impact',
-// })
 _createGallery()
 _createMemes()
 
@@ -77,6 +61,25 @@ function getMeme() {
 
 function getSelectedLine() {
 	return gMeme.lines[gMeme.selectedLineIdx]
+}
+
+function deleteLines() {
+	gMeme.selectedLineIdx = -1
+	gMeme.lines = []
+	gMeme.currentLineStartPos = null
+}
+
+function setRandomLines(howMany = 2) {
+	const lines = getMemeStrings()
+	for (let index = 0; index < howMany; index++) {
+		setNewLine({
+			txt: lines[getRandomInt(0, lines.length)],
+			size: getRandomInt(15, 35),
+			fontColor: getRandomColor(),
+			strokeColor: getRandomColor(),
+			align: 'center',
+		})
+	}
 }
 
 function setImg(imgId) {

@@ -1,11 +1,15 @@
 'use strict'
 
-let gCanvas = document.querySelector('canvas')
-let gCtx = gCanvas.getContext('2d')
+let gCanvas
+let gCtx
+
+//q- git page looks bad;
+//q- where do I get stickers from?
+//q- when I save meme what do I do with it?
 
 function renderMeme() {
-	// 	 gCanvas= document.querySelector('canvas')
-	//  gCtx = gCanvas.getContext('2d')
+	gCanvas = document.querySelector('canvas')
+	gCtx = gCanvas.getContext('2d')
 	resizeCanvas()
 	addListeners()
 }
@@ -27,10 +31,10 @@ function renderTxt() {
 	const { lines } = getMeme()
 
 	lines.forEach((line, index) => {
-		drawText(line)
 		if (line.isFocus) {
 			markText(index)
 		}
+		drawText(line)
 	})
 }
 
@@ -47,20 +51,23 @@ function renderImgFromlocal() {
 
 function onAddtxt() {
 	const txt = document.querySelector('input[name="meme-txt"]').value
-	const color = document.querySelector('input[name="txt-color"]').value
+	const fontColor = document.querySelector('input[name="txt-color"]').value
 	const colorS = document.querySelector('input[name="stroke-color"]').value
 	const align = document.querySelector('.btn-align-active').dataset.align
 
-	setNewLine({ txt, size: 20, color, colorS, align })
+	setNewLine({ txt, size: 20, fontColor, colorS, align })
 	renderTxt()
 }
 
-function drawText({ txt, size, color, pos, align, fontFamily }) {
-	gCtx.fillStyle = color
+function drawText({ txt, size, fontColor, strokeColor, pos, align, fontFamily }) {
+	gCtx.beginPath()
+	gCtx.fillStyle = fontColor
+	gCtx.strokeStyle = strokeColor
 	gCtx.font = `${size}px ${fontFamily}`
 	gCtx.textAlign = align
 
 	gCtx.fillText(txt, pos.x, pos.y)
+	gCtx.strokeText(txt, pos.x, pos.y)
 }
 
 function onChangeAlign(elBtn) {
@@ -72,7 +79,7 @@ function onChangeAlign(elBtn) {
 
 function onChangeSize(change) {
 	const { size } = getSelectedLine()
-	updateLine('size', size + change + 10)
+	updateLine('size', size + change)
 	renderCanvas()
 }
 
@@ -81,11 +88,11 @@ function onPickColor(color) {
 	renderCanvas()
 }
 
-function onToggleTxt(diff) {
+function onToggleTxt() {
 	const { selectedLineIdx, lines } = getMeme()
-	const newSelectedIdx = selectedLineIdx + diff
-	if (newSelectedIdx < 0 || newSelectedIdx >= lines.length) return
-	updateSelectedLineIdx(newSelectedIdx)
+	if (selectedLineIdx + 1 === lines.length) updateSelectedLineIdx(0)
+	else updateSelectedLineIdx(selectedLineIdx + 1)
+
 	updateLine('isFocus', true)
 	renderCanvas()
 }
@@ -93,11 +100,8 @@ function onToggleTxt(diff) {
 function markText(selectedId) {
 	const { xStart, yStart, xEnd, yEnd } = getTextBlock(selectedId)
 	gCtx.beginPath()
-	gCtx.rect(xStart - 10, yStart, xEnd - xStart + 20, yEnd - yStart + 10)
 	gCtx.fillStyle = 'rgba(225,225,225,0.2)'
-	gCtx.strokeStyle = 'white'
-	gCtx.stroke()
-	gCtx.fill()
+	gCtx.fillRect(xStart - 10, yStart, xEnd - xStart + 20, yEnd - yStart + 10)
 }
 
 function onDown(ev) {

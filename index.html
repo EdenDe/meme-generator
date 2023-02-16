@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>meme-generator</title>
-		<link rel="stylesheet" href="/css/main.css" />
+		<link rel="stylesheet" href="css/main.css" />
 	</head>
 	<body onload="onInit()">
 		<div class="main-screen" onclick="onToggleHamburger()"></div>
@@ -20,13 +20,16 @@
 			</nav>
 		</header>
 		<main class="main-layout">
-			<section class="gallery-options">
-				<input placeholder="search" list="keywords" oninput="onFilter(this.value)" />
-				<datalist id="keywords"> </datalist>
-				<div class="keywords"></div>
-				<button onclick="onFlexible()">I'm flexible</button>
+			<section class="gallery">
+				<section class="gallery-options">
+					<input placeholder="search" list="keywords" oninput="onFilter(this.value)" />
+					<datalist id="keywords"> </datalist>
+					<div class="keywords"></div>
+					<button onclick="onFlexible()">I'm flexible</button>
+				</section>
+				<section class="image-gallery"></section>
 			</section>
-			<section class="image-gallery"></section>
+
 			<section class="meme-editor hide">
 				<div class="canvas-container">
 					<canvas id="my-canvas"> </canvas>
@@ -35,21 +38,24 @@
 					<input type="text" placeholder="insert text" name="meme-txt" />
 					<button class="fa plus" onclick="onAddtxt()"></button>
 					<button class="fa trash-can" onclick="onDeleteTxt()"></button>
-					<button class="fa arrow-down-arrow-up" onclick="onToggleTxt(1)"></button>
+					<button class="fa arrows-up-down" onclick="onToggleTxt(1)"></button>
 					<div class="text-style-continer">
 						<button class="fa align-left" data-align="left" onclick="onChangeAlign(this)"></button>
 						<button class="fa align-center btn-align-active" data-align="center" onclick="onChangeAlign(this)"></button>
 						<button class="fa align-right" data-align="right" onclick="onChangeAlign(this)"></button>
-						<button class="fa plus" onclick="onChangeSize(1)">A</button>
-						<button class="fa minus" onclick="onChangeSize(-1)">A</button>
+						<button class="fa plus" onclick="onChangeSize(2)">A</button>
+						<button class="fa minus" onclick="onChangeSize(-2)">A</button>
 					</div>
 					<select onchange="onChangeFont(this)">
 						<option>Impact</option>
 						<option>Amatic</option>
 						<option>Cabin</option>
 					</select>
-					<input type="color" name="txt-color" onchange="onPickColor(this.value)" />
-					<input type="color" name="stroke-color" onchange="onPickStokeColor(this.value)" />
+
+					<button class="fa palette"><label for="txt-color"></label></button>
+					<button><label for="stroke-color">S </label></button>
+					<input type="color" id="txt-color" name="txt-color" onchange="onPickColor(this.value)" hidden />
+					<input type="color" id="stroke-color" name="stroke-color" onchange="onPickStokeColor(this.value)" hidden />
 
 					<button class="btn" onclick="onFacebookShare()">F</button>
 					<a href="#" class="btn center" onclick="downloadImg(this)" download="my-img.jpg">download</a>
@@ -64,7 +70,7 @@
 		<script src="js/service/img-service.js"></script>
 		<script src="js/service/facebook-share-service.js"></script>
 		<script src="js/service/meme-service.js"></script>
-		<script src="/js/meme-controller.js"></script>
-		<script src="/js/gallery-controller.js"></script>
+		<script src="js/meme-controller.js"></script>
+		<script src="js/gallery-controller.js"></script>
 	</body>
 </html>
