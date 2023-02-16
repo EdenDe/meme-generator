@@ -67,7 +67,7 @@ function onImg(imgId) {
 }
 
 function switchToMemeEditor() {
-	document.querySelector('li.active').classList.remove('active')
+	document.querySelector('li.active')?.classList.remove('active')
 	document.querySelector('.meme-editor').classList.remove('hide')
 	document.querySelector('.gallery').classList.add('hide')
 
@@ -75,7 +75,7 @@ function switchToMemeEditor() {
 }
 
 function onChangeSection(elI) {
-	document.querySelector('li.active').classList.remove('active')
+	document.querySelector('li.active')?.classList.remove('active')
 	elI.classList.add('active')
 	gSection = elI.dataset.show
 

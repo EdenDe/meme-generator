@@ -11,6 +11,11 @@
 	src: url(../../fonts/poppins/Poppins-Medium.ttf);
 }
 
+@font-face {
+	font-family: 'poppins semi-bold';
+	src: url(../../fonts/poppins/Poppins-SemiBold.ttf);
+}
+
 /* ICONS */
 @font-face {
 	font-family: fa;
@@ -35,14 +40,6 @@
 
 .fa.plus::before {
 	content: '\2b';
-}
-
-.fa.minus::before {
-	content: '\f068';
-}
-
-.fa.palette::before {
-	content: '\f53f';
 }
 
 .fa.arrows-up-down::before {

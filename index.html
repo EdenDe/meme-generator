@@ -36,32 +36,34 @@
 				</div>
 				<section class="editor-options">
 					<input type="text" placeholder="insert text" name="meme-txt" oninput="onChangeTxt(this.value)" />
-					<button class="fa plus" onclick="onAddtxt()"></button>
-					<button class="fa trash-can" onclick="onDeleteTxt()"></button>
-					<button class="fa arrows-up-down" onclick="onToggleTxt(1)"></button>
-					<div class="text-style-continer">
-						<button class="fa align-left" data-align="left" onclick="onChangeAlign(this)"></button>
-						<button class="fa align-center btn-align-active" data-align="center" onclick="onChangeAlign(this)"></button>
-						<button class="fa align-right" data-align="right" onclick="onChangeAlign(this)"></button>
-						<button class="fa plus" onclick="onChangeSize(2)">A</button>
-						<button class="fa minus" onclick="onChangeSize(-2)">A</button>
+					<div>
+						<button class="btn fa arrows-up-down" onclick="onToggleTxt(1)"></button>
+						<button class="btn fa plus" onclick="onAddtxt()"></button>
+						<button class="btn fa trash-can" onclick="onDeleteTxt()"></button>
 					</div>
-					<select onchange="onChangeFont(this)">
-						<option>Impact</option>
-						<option>Amatic</option>
-						<option>Cabin</option>
-					</select>
-
-					<button class="fa palette"><label name="textColor" for="txt-color"> color </label></button>
-					<button><label name="strokeColor" for="stroke-color">S </label></button>
-					<input type="color" id="txt-color" name="txt-color" onchange="onPickColor(this.value)" hidden />
-					<input type="color" id="stroke-color" name="stroke-color" onchange="onPickStokeColor(this.value)" hidden />
-
-					<button class="btn" onclick="onFacebookShare()">F</button>
-					<a href="#" class="btn center" onclick="downloadImg(this)" download="my-img.jpg">download</a>
-					<label class="btn center" for="img-upload"> upload</label>
-					<input class="file-input" type="file" id="img-upload" name="image" onchange="onImgUpload(event)" hidden />
-					<button class="btn center" onclick="onSaveMeme(this)">save</button>
+					<div class="text-style-continer">
+						<button class="btn fa align-left" data-align="left" onclick="onChangeAlign(this)"></button>
+						<button class="btn fa align-center btn-align-active" data-align="center" onclick="onChangeAlign(this)"></button>
+						<button class="btn fa align-right" data-align="right" onclick="onChangeAlign(this)"></button>
+						<button class="btn fontsize fontsize-plus" onclick="onChangeSize(2)">A</button>
+						<button class="btn fontsize fontsize-minus" onclick="onChangeSize(-2)">A</button>
+						<select onchange="onChangeFont(this)">
+							<option>Impact</option>
+							<option>Amatic</option>
+							<option>Cabin</option>
+						</select>
+						<button class="fa palette"><label name="textColor" for="txt-color"> . </label></button>
+						<button class="btn-stroke"><label name="strokeColor" for="stroke-color"> S </label></button>
+						<input type="color" id="txt-color" name="txt-color" onchange="onPickColor(this)" hidden />
+						<input type="color" id="stroke-color" name="stroke-color" onchange="onPickStokeColor(this)" hidden />
+					</div>
+					<div class="action">
+						<button class="btn-facebook-share" onclick="onFacebookShare()">share on FB</button>
+						<a href="#" class="a-download center" onclick="downloadImg(this)" download="my-img.jpg">download</a>
+						<label class="btn-upload center" for="img-upload"> upload</label>
+						<input class="file-input" type="file" id="img-upload" name="image" onchange="onImgUpload(event)" hidden />
+						<button class="btn-save center" onclick="onSaveMeme(this)">save</button>
+					</div>
 				</section>
 			</section>
 		</main>

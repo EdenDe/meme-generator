@@ -79,9 +79,9 @@ function onChangeSize(change) {
 	renderCanvas()
 }
 
-function onPickColor(color) {
-	debugger
-	updateLine('color', color)
+function onPickColor(elColor) {
+	updateLine('fontColor', elColor.value)
+	document.querySelector('button.palette').style.color = elColor.value
 	renderCanvas()
 }
 
@@ -158,8 +158,9 @@ function onChangeFont(elSelect) {
 	renderCanvas()
 }
 
-function onPickStokeColor() {
-	updateLine('strokeColor', elSelect.value)
+function onPickStokeColor(elColor) {
+	updateLine('strokeColor', elColor.value)
+	document.querySelector('.btn-stroke').style.color = elColor.value
 	renderCanvas()
 }
 

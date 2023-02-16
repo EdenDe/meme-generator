@@ -73,3 +73,9 @@
 		flex: 1;
 	}
 }
+
+@media (max-width: 1100px) {
+	.meme-editor {
+		gap: 30px;
+	}
+}
