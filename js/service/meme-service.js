@@ -20,7 +20,7 @@ const memeStrings = [
 	'me trying to use github',
 ]
 
-let gKeywordSearchCountMap = { funny: 4, person: 2, animals: 10 }
+let gKeywordSearchCountMap = { funny: 4, person: 2, animals: 10, baby: 3, cats: 1, sleep: 12 }
 let gImgs
 let gMeme = {
 	selectedImgId: null,
@@ -94,26 +94,9 @@ function getCurrentLineStartPos() {
 	return gMeme.currentLineStartPos
 }
 
-function isTextClicked({ x, y }) {
-	for (let index = 0; index < gMeme.lines.length; index++) {
-		updateSelectedLineIdx(index)
-		const { xStart, yStart, xEnd, yEnd } = getTextBlock()
-
-		if (xStart < x && x < xEnd && yStart < y && y < yEnd) {
-			return true
-		}
-	}
-	return false
-}
-
 function deleteTxt() {
 	gMeme.lines.splice(gMeme.selectedLineIdx, 1)
 	updateSelectedLineIdx(gMeme.lines.length > 0 ? 0 : -1)
-}
-
-function setFocus() {
-	gMeme.lines.forEach(line => (line.isFocus = false))
-	updateLine('isFocus', true)
 }
 
 function updateSelectedLineIdx(selectedLine) {
@@ -138,7 +121,7 @@ function setNewLine(line) {
 		x: 150,
 		y,
 	}
-	line.isFocus = false
+
 	line.isDrag = false
 
 	gMeme.lines.push(line)

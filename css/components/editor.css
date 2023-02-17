@@ -1,79 +1,104 @@
-.meme-editor {
-	margin-top: 30px;
+body.show-meme-editor .meme-editor {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	gap: 90px;
+	gap: max(30px, 5vw);
+}
+
+.meme-editor {
+	display: none;
+	margin-top: 30px;
+	align-items: center;
 }
 
 .canvas-container {
 	width: 450px;
 	height: 450px;
+	box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
+	box-shadow: 0px 0px 0px 4px #bbc4;
+	border-radius: 10px;
+	overflow: hidden;
 }
 
 .editor-options {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	flex-direction: column;
 	gap: 15px;
-
-	flex-basis: 500px;
-	padding: 15px;
+	flex: 1;
+	height: 450px;
+	min-width: 335px;
+	max-width: 450px;
+	padding: clamp(15px, 3vw, 40px);
 
 	box-shadow: 1px 5px 0 #ebeef21a, inset 0 5px 0 #ebeef21a;
 	border-radius: 30px;
-	background-color: #ebeef21a;
+	background-color: var(--grey-clr1);
 }
 
-.editor-options div:first-of-type > * {
-	margin: 5px 10px;
-	font-size: 25px;
+.editor-options > div:first-of-type {
+	display: flex;
+	justify-content: center;
+	color: white;
+	gap: 15px;
+}
+
+.editor-options > div:first-of-type > * {
 	color: white;
 }
 
-.editor-options input {
-	box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
+.editor-options input[name='meme-txt'] {
+	box-shadow: 0px 4px 0 #bbc4d1, inset 0 5px 0 #ffffff;
 	border-radius: 28px;
 	background-color: var(--grey-clr-1);
 	width: 90%;
 	border: none;
 }
 
-.editor-options button {
-	width: 55px;
-	height: 50px;
-	border-radius: 10px;
-	border: none;
-}
-
 .text-style-continer {
 	background-color: #19a59f;
 	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+	flex-direction: column;
 	gap: 20px;
-	padding: 20px;
+	padding: clamp(10px, 1vw, 20px);
 	border-radius: 10px;
+	position: relative;
+	width: 100%;
+}
+
+.text-style-continer > * {
+	display: flex;
+	gap: 15px;
+	justify-content: space-between;
 }
 
 .text-style-continer select {
 	flex-grow: 1;
+	border: none;
 	border-radius: 10px;
 	text-transform: uppercase;
-	font-size: 25px;
+	font-size: clamp(1em, 2.5vw, 1.5em);
 	text-align: center;
 }
 
-.text-style-continer > * {
-	box-shadow: 1px 5px 0 rgba(92, 92, 92, 0.55), inset 0 5px 0 rgba(255, 255, 255, 0.58);
+.text-style-continer > div > * {
+	box-shadow: 1px 3px 0px 0px rgb(0 0 0 / 24%), inset 0 3px 0 rgb(255 255 255 / 20%);
 	background-color: #ffffff;
 	font-family: var(--poppins-bold);
 }
 
+.editor-options button,
+label {
+	width: clamp(40px, 5vw, 55px);
+	height: clamp(40px, 4.5vh, 50px);
+	border-radius: 10px;
+	border: none;
+	font-size: clamp(1em, 2.5vw, 1.5em);
+}
+
 .text-style-continer .fontsize {
-	font-size: 25px;
 	position: relative;
 }
 
@@ -81,107 +106,100 @@
 	content: '+';
 	position: absolute;
 	top: 5px;
-	font-size: 20px;
+	font-size: 1.25rem;
 }
 
 .fontsize-minus::after {
 	content: '-';
 	position: absolute;
 	top: 5px;
-	font-size: 20px;
+	font-size: 1.25rem;
 }
 
-.text-style-continer button {
-	font-size: 25px;
+.text-style-continer label {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-button:has(label[name='textColor']) {
-	position: relative;
-}
-
-label[name='textColor'] {
+input[type='color'] {
+	position: fixed;
 	opacity: 0;
 }
 
-button:has(label[name='textColor'])::before {
+label[name='textColor']::before {
 	content: '\f53f';
 	font-family: fa;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	text-align: center;
 }
 
-button label[name='strokeColor'] {
+label[name='strokeColor'] {
 	position: relative;
 }
 
-button label[name='strokeColor']::after {
+label[name='strokeColor']::after {
 	content: '_';
 	position: absolute;
 	bottom: 0;
-	left: 50%;
-
-	font-size: 15px;
-	transform: translateX(-50%);
 }
 
 .editor-options .action {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 15px;
+	width: 100%;
 }
 
-.editor-options .action > * {
+.editor-options .action > *:not(.file-input) {
 	color: white;
 	font-family: inherit;
 	flex: 1;
 	flex-basis: 45%;
 
 	font-size: 18px;
-	align-self: center;
-	text-align: center;
-	padding: 10px 20px;
+	padding: 0 10px;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .editor-options .action > .btn-facebook-share {
 	border-radius: 15px;
-	box-shadow: 1px 6px 0 #165c9c, inset 0 5px 0 #ffffff;
+	box-shadow: 1px 3px 0 #165c9c, inset 0 5px 0 rgba(255, 255, 255, 0.22);
 	background-color: #1e7cd3;
 }
 
 .editor-options .action > .a-download {
 	border-radius: 15px;
-	box-shadow: 1px 6px 0 #632687, inset 0 5px 0 #ffffff;
+	box-shadow: 1px 3px 0 #632687, inset 0 5px 0 rgba(255, 255, 255, 0.22);
 	background-color: #8f44bb;
 	text-decoration: none;
 }
 
 .editor-options .action > .btn-upload {
 	border-radius: 15px;
-	box-shadow: 1px 6px 0 #0a7e76, inset 0 5px 0 #ffffff;
+	box-shadow: 1px 3px 0 #0a7e76, inset 0 5px 0 rgba(255, 255, 255, 0.22);
 	background-color: #0fa79d;
 }
 
 .editor-options .action > .btn-save {
 	border-radius: 15px;
-	box-shadow: 1px 6px 0 #1b8432, inset 0 5px 0 #ffffff;
+	box-shadow: 1px 3px 0 #1b8432, inset 0 5px 0 rgba(255, 255, 255, 0.22);
 	background-color: #25ab42;
 }
 
 .editor-options .plus {
-	box-shadow: 1px 5px 0 #015d33, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+	box-shadow: 1px 3px 0 #015d33, inset 0 5px 0 rgba(255, 255, 255, 0.22);
 	background-color: #ebeef3;
 	background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
 }
 .editor-options .trash-can {
-	box-shadow: 1px 5px 0 #8c0606, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+	box-shadow: 1px 3px 0 #8c0606, inset 0 5px 0 rgba(255, 255, 255, 0.22);
 	background-color: #ebeef3;
 	background-image: linear-gradient(-38deg, #cf1d37 0%, #cf1d37 1%, #f05036 100%);
 }
 .editor-options .arrows-up-down {
-	box-shadow: 1px 5px 0 #048b97, inset 0 5px 0 rgba(255, 255, 255, 0.58);
+	box-shadow: 1px 3px 0 #048b97, inset 0 5px 0 rgba(255, 255, 255, 0.22);
 	background-color: #ebeef3;
 	background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
 }

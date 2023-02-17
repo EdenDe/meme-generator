@@ -16,7 +16,7 @@
 	--blue-clr-2: #21ac91;
 
 	/* FONTS */
-	--poppins-light: 'Poppins light', sans-serif;
-	--poppins-med: 'poppins medium', sans-serif;
-	--poppins-bold: 'poppins semi-bold', sans-serif;
+	--poppins-light: 'Poppins light', Impact, sans-serif;
+	--poppins-med: 'poppins medium', Impact, sans-serif;
+	--poppins-bold: 'poppins semi-bold', Impact, sans-serif;
 }

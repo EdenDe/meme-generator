@@ -4,6 +4,7 @@ let gSection = 'gallery'
 
 function onInit() {
 	renderGallery()
+	window.addEventListener('resize', createKeywordMap)
 }
 
 function renderGallery() {
@@ -35,18 +36,34 @@ function createKeywordMap() {
 	let maxFont = 30
 	let minFont = 7
 
-	let string = ''
+	const keywordContainer = document.querySelector('.keywords')
+	keywordContainer.innerHTML = ''
 
+	let string = ''
 	for (const key in keywords) {
 		let fontSize = minFont
 		if (keywords[key] > 0) fontSize = (keywords[key] / maxNum) * (maxFont - minFont) + minFont
 
 		string += `<span data-fontsize="${fontSize}px">${key}</span>`
 	}
-	document.querySelector('.keywords').innerHTML = string
+
+	keywordContainer.innerHTML = string
 	document.querySelectorAll('span[data-fontsize]').forEach(elSpan => {
 		elSpan.style.fontSize = elSpan.dataset.fontsize
 	})
+
+	while (keywordContainer.scrollWidth > keywordContainer.clientWidth) {
+		document.querySelector('.btn-more-keywords')?.remove()
+		keywordContainer.style.overflow = 'hidden'
+		keywordContainer.removeChild(keywordContainer.lastChild)
+		keywordContainer.innerHTML += `<button class="btn-more-keywords" onclick="onMoreKeywords()" > more </button>`
+	}
+}
+
+function onMoreKeywords() {
+	const keywordContainer = document.querySelector('.keywords')
+	keywordContainer.style.width = 'fit-content'
+	keywordContainer.style.overflow = 'visible'
 }
 
 function createDataList() {
@@ -68,23 +85,20 @@ function onImg(imgId) {
 
 function switchToMemeEditor() {
 	document.querySelector('li.active')?.classList.remove('active')
-	document.querySelector('.meme-editor').classList.remove('hide')
-	document.querySelector('.gallery').classList.add('hide')
+	document.body.classList.add('show-meme-editor')
 
 	renderMeme()
 }
 
 function onChangeSection(elI) {
+	if (document.body.classList.contains('show-meme-editor')) {
+		document.body.classList.remove('show-meme-editor')
+	}
+
 	document.querySelector('li.active')?.classList.remove('active')
 	elI.classList.add('active')
 	gSection = elI.dataset.show
 
-	const elGallery = document.querySelector('.gallery')
-
-	if (elGallery.classList.contains('hide')) {
-		elGallery.classList.remove('hide')
-		document.querySelector('.meme-editor').classList.add('hide')
-	}
 	renderGallery()
 }
 

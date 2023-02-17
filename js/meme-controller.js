@@ -14,24 +14,12 @@ function addListeners() {
 	gCanvas.addEventListener('mousedown', onDown)
 	gCanvas.addEventListener('mousemove', onMove)
 	gCanvas.addEventListener('mouseup', onUp)
-
-	window.addEventListener('resize', () => onInit())
+	window.addEventListener('resize', renderMeme)
 }
 
 function renderCanvas() {
 	gCtx.rect(0, 0, gCanvas.width, gCanvas.height)
 	renderImgFromlocal()
-}
-
-function renderTxt() {
-	const { lines } = getMeme()
-
-	lines.forEach((line, index) => {
-		if (line.isFocus) {
-			markText(index)
-		}
-		drawText(line)
-	})
 }
 
 function renderImgFromlocal() {
@@ -45,14 +33,11 @@ function renderImgFromlocal() {
 	}
 }
 
-function onAddtxt() {
-	const txt = document.querySelector('input[name="meme-txt"]').value
-	const fontColor = document.querySelector('input[name="txt-color"]').value
-	const colorS = document.querySelector('input[name="stroke-color"]').value
-	const align = document.querySelector('.btn-align-active').dataset.align
-
-	setNewLine({ txt, size: 20, fontColor, colorS, align })
-	renderTxt()
+function renderTxt() {
+	const { lines } = getMeme()
+	lines.forEach(line => {
+		drawText(line)
+	})
 }
 
 function drawText({ txt, size, fontColor, strokeColor, pos, align, fontFamily }) {
@@ -64,6 +49,30 @@ function drawText({ txt, size, fontColor, strokeColor, pos, align, fontFamily })
 
 	gCtx.fillText(txt, pos.x, pos.y)
 	gCtx.strokeText(txt, pos.x, pos.y)
+
+	renderFocusText()
+}
+
+function renderFocusText() {
+	const { selectedLineIdx } = getMeme()
+	if (selectedLineIdx === -1) return
+	const { txt } = getSelectedLine()
+	document.querySelector('input[name="meme-txt"]').value = txt
+
+	const { xStart, yStart, xEnd, yEnd } = getTextBlock()
+	gCtx.beginPath()
+	gCtx.fillStyle = 'rgba(225,225,225,0.2)'
+	gCtx.fillRect(xStart - 10, yStart, xEnd - xStart + 20, yEnd - yStart + 10)
+}
+
+function onAddtxt() {
+	const txt = document.querySelector('input[name="meme-txt"]').value
+	const fontColor = document.querySelector('input[name="txt-color"]').value
+	const colorS = document.querySelector('input[name="stroke-color"]').value
+	const align = document.querySelector('.btn-align-active').dataset.align
+
+	setNewLine({ txt, size: 20, fontColor, colorS, align })
+	renderTxt()
 }
 
 function onChangeAlign(elBtn) {
@@ -81,7 +90,7 @@ function onChangeSize(change) {
 
 function onPickColor(elColor) {
 	updateLine('fontColor', elColor.value)
-	document.querySelector('button.palette').style.color = elColor.value
+	document.querySelector('.label-text-color').style.color = elColor.value
 	renderCanvas()
 }
 
@@ -90,7 +99,6 @@ function onToggleTxt() {
 	if (selectedLineIdx + 1 === lines.length) updateSelectedLineIdx(0)
 	else updateSelectedLineIdx(selectedLineIdx + 1)
 
-	updateLine('isFocus', true)
 	renderCanvas()
 }
 
@@ -99,22 +107,12 @@ function onChangeTxt(txt) {
 	renderCanvas()
 }
 
-function markText(selectedId) {
-	const { xStart, yStart, xEnd, yEnd } = getTextBlock(selectedId)
-	gCtx.beginPath()
-	gCtx.fillStyle = 'rgba(225,225,225,0.2)'
-	gCtx.fillRect(xStart - 10, yStart, xEnd - xStart + 20, yEnd - yStart + 10)
-}
-
 function onDown(ev) {
 	const pos = getEvPos(ev)
 
 	if (!isTextClicked(pos)) return
 
 	updateLine('isDrag', true)
-	setFocus()
-	const { txt } = getSelectedLine()
-	document.querySelector('input[name="meme-txt"]').value = txt
 	renderCanvas()
 
 	setCurrentLineStartPos(pos)
@@ -160,8 +158,21 @@ function onChangeFont(elSelect) {
 
 function onPickStokeColor(elColor) {
 	updateLine('strokeColor', elColor.value)
-	document.querySelector('.btn-stroke').style.color = elColor.value
+	document.querySelector('.label-stroke-color').style.color = elColor.value
 	renderCanvas()
+}
+
+function isTextClicked({ x, y }) {
+	const { lines } = getMeme()
+	for (let index = 0; index < lines.length; index++) {
+		updateSelectedLineIdx(index)
+		const { xStart, yStart, xEnd, yEnd } = getTextBlock()
+
+		if (xStart < x && x < xEnd && yStart < y && y < yEnd) {
+			return true
+		}
+	}
+	return false
 }
 
 //to check the text dimentions

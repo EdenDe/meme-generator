@@ -1,4 +1,4 @@
-@media (max-width: 550px) {
+@media (max-width: 540px) {
 	.btn-ham {
 		display: flex;
 		position: absolute;
@@ -43,7 +43,16 @@
 	body.menu-open .main-menu > li {
 		padding: 20px;
 		width: 90%;
-		border-bottom: 1px solid grey;
+		border: none;
+	}
+
+	body.menu-open .main-menu > li:hover {
+		color: var(--blue-clr-2);
+	}
+
+	body.menu-open .main-menu {
+		border-radius: 0px;
+		z-index: 1;
 	}
 
 	.main-menu {
@@ -69,13 +78,29 @@
 		height: auto;
 	}
 
-	.image-gallery > img {
-		flex: 1;
+	.main-layout {
+		grid-template-columns: 10px 1fr 10px;
+	}
+}
+
+@media (max-width: 410px) {
+	.image-gallery img {
+		width: 100%;
+		height: auto;
 	}
 }
 
 @media (max-width: 1100px) {
-	.meme-editor {
-		gap: 30px;
+	.canvas-container {
+		width: 350px;
+		height: 350px;
+	}
+	.editor-options {
+		height: 350px;
+		padding: 10px;
+		gap: 5px;
+	}
+	.text-style-continer {
+		gap: 10px;
 	}
 }

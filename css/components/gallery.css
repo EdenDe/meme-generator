@@ -1,3 +1,15 @@
+body.show-meme-editor .gallery {
+	display: none;
+}
+
+.gallery {
+	display: block;
+	background-color: var(--grey-clr1);
+	border-radius: 10px;
+	padding: 10px;
+	box-shadow: 0px 3px 3px 0px rgb(0 0 0 / 58%);
+}
+
 .image-gallery {
 	display: flex;
 	flex-wrap: wrap;
@@ -24,20 +36,27 @@
 	border-radius: 100vw;
 }
 
-.gallery {
-	background-color: var(--grey-clr1);
-	border-radius: 10px;
-	padding: 10px;
-	box-shadow: 0px 3px 3px 0px rgb(0 0 0 / 58%);
+.gallery-options .input-container {
+	position: relative;
+	width: 40%;
+}
+
+.gallery-options .input-container::after {
+	content: url(../../img/Forme_9.png);
+	font-family: fa;
+	position: absolute;
+
+	right: 20px;
+	top: 5px;
 }
 
 .gallery-options input {
-	flex: 1;
-
 	background-color: var(--grey-clr2);
 	border-radius: 30px;
 	padding: 5px 20px;
 
+	width: 100%;
+	height: 100%;
 	color: var(--grey-clr-2);
 
 	font-size: 16px;
@@ -45,7 +64,6 @@
 }
 
 .image-gallery img {
-	width: 200px;
 	height: 173px;
 	object-fit: cover;
 	max-width: 300px;
@@ -66,9 +84,9 @@ img:hover {
 }
 
 .gallery-options button {
-	align-self: center;
+	align-self: end;
 	padding: 10px;
-
+	width: 15%;
 	background-image: linear-gradient(-86deg, #33be6d 0%, #0c98b9 100%);
 	box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
 	border: none;
@@ -78,11 +96,19 @@ img:hover {
 }
 
 .gallery-options .keywords {
-	flex: 1;
+	width: 40%;
 	padding: 0 10px;
 	box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
 	border-radius: 25px;
 	background-color: rgba(255, 255, 255, 0.4);
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+	padding-bottom: 5px;
+}
+
+.gallery-options .keywords button.btn-more-keywords {
+	padding: 2px 5px;
 }
 
 .gallery-options .keywords span {
