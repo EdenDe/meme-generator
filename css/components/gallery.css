@@ -109,6 +109,7 @@ img:hover {
 
 .gallery-options .keywords button.btn-more-keywords {
 	padding: 2px 5px;
+	width: fit-content;
 }
 
 .gallery-options .keywords span {
