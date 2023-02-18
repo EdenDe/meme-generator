@@ -47,8 +47,18 @@ function getImgs() {
 	return gImgs.filter(img => img.keywords.some(word => word.startsWith(gSearchImgFilter)))
 }
 
+function setSaveMemeLines() {
+	deleteLines()
+	const meme = gSavedMemeDataURL.find(meme => meme.id === gMeme.selectedImgId)
+	meme.lines.forEach(line => {
+		setNewLine(line)
+	})
+}
+
 function getImgById(id) {
-	return gImgs.find(img => img.id === id)
+	let img = gImgs.find(img => img.id === id)
+	if (!img) img = gSavedMemeDataURL.find(img => img.id === id)
+	return img
 }
 
 function getMemes() {
@@ -165,10 +175,20 @@ function _createMemes() {
 }
 
 function saveMeme(memeDataURL) {
-	gSavedMemeDataURL.push({
-		id: makeId(),
-		imgSrc: memeDataURL,
-	})
+	let memeIdx = gSavedMemeDataURL.findIndex(meme => meme.id === gMeme.selectedImgId)
+	const { imgSrc } = getImgById(gMeme.selectedImgId)
+	let isExists = memeIdx !== -1
+
+	if (!isExists) {
+		memeIdx = gSavedMemeDataURL.length
+	}
+
+	gSavedMemeDataURL[memeIdx] = {
+		id: isExists ? gMeme.selectedImgId : makeId(),
+		imgSrc,
+		memeDataURL,
+		lines: gMeme.lines,
+	}
 	_saveMemesToStorage()
 }
 

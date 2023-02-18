@@ -68,7 +68,7 @@
 					</div>
 					<div class="action">
 						<button class="btn-facebook-share" onclick="onFacebookShare()">share on FB</button>
-						<a href="#" class="a-download center" onclick="downloadImg(this)" download="my-img.jpg">download</a>
+						<a href="#" class="a-download center" onclick="onDownloadMeme()" download="my-img.jpg">download</a>
 						<label class="btn-upload center" for="img-upload"> upload</label>
 						<input class="file-input" type="file" id="img-upload" name="image" onchange="onImgUpload(event)" hidden />
 						<button class="btn-save center" onclick="onSaveMeme(this)">save</button>
@@ -79,7 +79,6 @@
 
 		<script src="js/service/utils-service.js"></script>
 		<script src="js/service/img-service.js"></script>
-		<script src="js/service/facebook-share-service.js"></script>
 		<script src="js/service/meme-service.js"></script>
 		<script src="js/meme-controller.js"></script>
 		<script src="js/gallery-controller.js"></script>

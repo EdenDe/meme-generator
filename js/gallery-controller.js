@@ -14,10 +14,10 @@ function renderGallery() {
 
 	document.querySelector('.image-gallery').innerHTML = imgs
 		.map(
-			({ imgSrc, id }) =>
+			img =>
 				`
-    <div class="card" onclick="onImg('${id}')">
-    <img class="img-card" src="${imgSrc}">
+    <div class="card" onclick="onImg('${img.id}')">
+    <img class="img-card" src="${gSection === 'gallery' ? img.imgSrc : img.memeDataURL}">
     </div>
     `
 		)
@@ -77,8 +77,13 @@ function onFilter(value) {
 
 function onImg(imgId) {
 	setImg(imgId)
-	deleteLines()
-	setRandomLines(2)
+	if (gSection === 'gallery') {
+		deleteLines()
+		setRandomLines(2)
+	} else {
+		setSaveMemeLines()
+	}
+
 	switchToMemeEditor()
 }
 
