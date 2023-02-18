@@ -8,6 +8,7 @@ body {
 	margin: 0;
 	font-family: var(--poppins-light);
 	overflow-x: hidden;
+	overflow-y: hidden;
 	background-color: var(--grey-clr2);
 }
 

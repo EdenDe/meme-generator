@@ -107,6 +107,16 @@ img:hover {
 	padding-bottom: 5px;
 }
 
+.keywords:has(button[data-show='more']) {
+	flex-wrap: nowrap;
+	overflow: hidden;
+}
+
+.keywords:has(button[data-show='close']) {
+	flex-wrap: wrap;
+	overflow: visible;
+}
+
 .gallery-options .keywords button.btn-more-keywords {
 	padding: 2px 5px;
 	width: fit-content;

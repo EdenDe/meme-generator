@@ -29,6 +29,7 @@ function renderGallery() {
 
 function createKeywordMap() {
 	const keywords = getKeywordSearchCountMap()
+	const keywordBtn = document.querySelector('.btn-more-keywords')?.dataset.show || 'more'
 
 	let maxNum = Math.max(...Object.values(keywords))
 	if (maxNum === 0) maxNum = 1
@@ -39,31 +40,29 @@ function createKeywordMap() {
 	const keywordContainer = document.querySelector('.keywords')
 	keywordContainer.innerHTML = ''
 
-	let string = ''
 	for (const key in keywords) {
 		let fontSize = minFont
 		if (keywords[key] > 0) fontSize = (keywords[key] / maxNum) * (maxFont - minFont) + minFont
-
-		string += `<span data-fontsize="${fontSize}px">${key}</span>`
+		keywordContainer.innerHTML += `<span data-fontsize="${fontSize}px">${key}</span>`
 	}
 
-	keywordContainer.innerHTML = string
 	document.querySelectorAll('span[data-fontsize]').forEach(elSpan => {
 		elSpan.style.fontSize = elSpan.dataset.fontsize
 	})
 
 	while (keywordContainer.scrollWidth > keywordContainer.clientWidth) {
-		document.querySelector('.btn-more-keywords')?.remove()
-		keywordContainer.style.overflow = 'hidden'
-		keywordContainer.removeChild(keywordContainer.lastChild)
-		keywordContainer.innerHTML += `<button class="btn-more-keywords" onclick="onMoreKeywords()" > more </button>`
+		if (keywordBtn === 'more') {
+			document.querySelector('.btn-more-keywords')?.remove()
+			keywordContainer.removeChild(keywordContainer.lastChild)
+		}
+		keywordContainer.innerHTML += `<button class="btn-more-keywords" data-show="${keywordBtn}" onclick="onMoreKeywords(this)">..${keywordBtn}</button>`
+		if (keywordBtn === 'close') return
 	}
 }
 
-function onMoreKeywords() {
-	const keywordContainer = document.querySelector('.keywords')
-	keywordContainer.style.width = 'fit-content'
-	keywordContainer.style.overflow = 'visible'
+function onMoreKeywords(elBtn) {
+	elBtn.dataset.show = elBtn.dataset.show === 'close' ? 'more' : 'close'
+	createKeywordMap()
 }
 
 function createDataList() {
