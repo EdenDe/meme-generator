@@ -36,7 +36,6 @@ body.show-meme-editor .meme-editor {
 	gap: 15px;
 	flex: 1;
 
-	height: 450px;
 	min-width: 335px;
 	max-width: 450px;
 	padding: clamp(15px, 3vw, 40px);
@@ -76,7 +75,7 @@ body.show-meme-editor .meme-editor {
 .text-style-continer {
 	display: flex;
 	flex-direction: column;
-	gap: 20px;
+	gap: 15px;
 	position: relative;
 	width: 100%;
 	padding: clamp(10px, 1vw, 20px);

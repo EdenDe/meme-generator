@@ -191,7 +191,7 @@ function onSaveMeme(elBtn) {
 
 	setTimeout(() => {
 		elBtn.disabled = false
-	}, 10000)
+	}, 3000)
 
 	gTask = 'save'
 	updateSelectedLineIdx(-1)
