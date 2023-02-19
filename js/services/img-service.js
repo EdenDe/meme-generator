@@ -44,7 +44,6 @@ function _saveImgsToStorage() {
 function _createGallery() {
 	gImgs = loadFromStorage(STORAGE_IMGS_KEY) || []
 	if (gImgs.length > 0) return
-	const keywords = getKeywords()
 
 	for (let index = 1; index <= 18; index++) {
 		gImgs.push({
