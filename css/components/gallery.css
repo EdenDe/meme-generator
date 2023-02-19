@@ -45,8 +45,8 @@ body.show-meme-editor .gallery {
 	content: url(../../img/Forme_9.png);
 	font-family: fa;
 	position: absolute;
-	right: 20px;
-	top: 5px;
+	right: 1em;
+	top: 0.2em;
 }
 
 .gallery-options input {

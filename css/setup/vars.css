@@ -19,4 +19,8 @@
 	--poppins-light: 'Poppins light', Impact, sans-serif;
 	--poppins-med: 'poppins medium', Impact, sans-serif;
 	--poppins-bold: 'poppins semi-bold', Impact, sans-serif;
+
+	/* box-styling */
+	--btn-shadow: rgba(255, 255, 255, 0.22);
+	--btn-border-radius: 10px;
 }

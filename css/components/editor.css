@@ -1,10 +1,19 @@
+body.show-meme-editor {
+	background-image: url(../../img/background1.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-position-y: inherit;
+	background-blend-mode: color-dodge;
+	overflow-y: auto;
+}
+
 body.show-meme-editor .meme-editor {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
 	gap: max(30px, 5vw);
-	margin-top: 30px;
+	margin: 30px 0;
 }
 
 .meme-editor {
@@ -14,19 +23,20 @@ body.show-meme-editor .meme-editor {
 .canvas-container {
 	width: 450px;
 	height: 450px;
-	border-radius: 10px;
+	border-radius: var(--btn-border-radius);
 	overflow: hidden;
 	box-shadow: 0px 0px 0px 4px #bbc4;
 }
 
 .editor-options {
 	display: flex;
+	flex-direction: column;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
-	flex-direction: column;
 	gap: 15px;
 	flex: 1;
+
 	height: 450px;
 	min-width: 335px;
 	max-width: 450px;
@@ -37,23 +47,28 @@ body.show-meme-editor .meme-editor {
 	background-color: var(--grey-clr1);
 }
 
+.editor-options * {
+	border-radius: var(--btn-border-radius);
+}
+
 .editor-options > div:first-of-type {
 	display: flex;
 	justify-content: center;
-	color: white;
+	color: var(--grey-clr-3);
 	gap: 15px;
+	width: 50%;
 }
 
 .editor-options > div:first-of-type > * {
-	color: white;
+	color: var(--grey-clr-3);
 }
 
 .editor-options input[name='meme-txt'] {
-	box-shadow: 0px 4px 0 #bbc4d1, inset 0 5px 0 #ffffff;
-	border-radius: 28px;
 	background-color: var(--grey-clr-1);
 	width: 90%;
 	border: none;
+	border-radius: 28px;
+	box-shadow: 0px 4px 0 #bbc4d1, inset 0 5px 0 var(--grey-clr-3);
 }
 
 .text-style-continer {
@@ -63,8 +78,7 @@ body.show-meme-editor .meme-editor {
 	position: relative;
 	width: 100%;
 	padding: clamp(10px, 1vw, 20px);
-	border-radius: 10px;
-	background-color: #19a59f;
+	background-color: var(--blue-clr-1);
 }
 
 .text-style-continer > * {
@@ -74,9 +88,8 @@ body.show-meme-editor .meme-editor {
 }
 
 .text-style-continer select {
-	flex-grow: 1;
+	flex: 3;
 	border: none;
-	border-radius: 10px;
 
 	font-size: 20px;
 	text-align: center;
@@ -85,15 +98,14 @@ body.show-meme-editor .meme-editor {
 
 .text-style-continer > div > * {
 	font-family: var(--poppins-bold);
-	background-color: #ffffff;
-	box-shadow: 1px 3px 0px 0px rgb(0 0 0 / 24%), inset 0 3px 0 rgb(255 255 255 / 20%);
+	background-color: var(--grey-clr-3);
+	box-shadow: 1px 3px 0px 0px rgb(0 0 0 / 24%), inset 0 3px 0 var(--btn-shadow);
 }
 
 .editor-options button,
 label {
-	width: clamp(40px, 5vw, 55px);
+	flex: 1;
 	height: clamp(40px, 4.5vh, 50px);
-	border-radius: 10px;
 	border: none;
 	font-size: 20px;
 }
@@ -146,7 +158,6 @@ label[name='strokeColor']::after {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 15px;
-	width: 100%;
 }
 
 .editor-options .action > *:not(.file-input) {
@@ -156,49 +167,44 @@ label[name='strokeColor']::after {
 	flex: 1;
 	flex-basis: 45%;
 
-	color: white;
+	color: var(--grey-clr-3);
 	font-family: inherit;
 	font-size: 18px;
 	padding: 0 10px;
 }
 
 .editor-options .action > .btn-facebook-share {
-	border-radius: 15px;
-	box-shadow: 1px 3px 0 #165c9c, inset 0 5px 0 rgba(255, 255, 255, 0.22);
+	box-shadow: 1px 3px 0 #165c9c, inset 0 5px 0 var(--btn-shadow);
 	background-color: #1e7cd3;
 }
 
 .editor-options .action > .a-download {
-	border-radius: 15px;
-	box-shadow: 1px 3px 0 #632687, inset 0 5px 0 rgba(255, 255, 255, 0.22);
+	box-shadow: 1px 3px 0 #632687, inset 0 5px 0 var(--btn-shadow);
 	background-color: #8f44bb;
 	text-decoration: none;
 }
 
 .editor-options .action > .btn-upload {
-	border-radius: 15px;
-	box-shadow: 1px 3px 0 #0a7e76, inset 0 5px 0 rgba(255, 255, 255, 0.22);
+	box-shadow: 1px 3px 0 #0a7e76, inset 0 5px 0 var(--btn-shadow);
 	background-color: #0fa79d;
 }
 
 .editor-options .action > .btn-save {
-	border-radius: 15px;
-	box-shadow: 1px 3px 0 #1b8432, inset 0 5px 0 rgba(255, 255, 255, 0.22);
+	box-shadow: 1px 3px 0 #1b8432, inset 0 5px 0 var(--btn-shadow);
 	background-color: #25ab42;
 }
 
 .editor-options .plus {
-	box-shadow: 1px 3px 0 #015d33, inset 0 5px 0 rgba(255, 255, 255, 0.22);
-	background-color: #ebeef3;
+	box-shadow: 1px 3px 0 #015d33, inset 0 5px 0 var(--btn-shadow);
 	background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);
 }
+
 .editor-options .trash-can {
-	box-shadow: 1px 3px 0 #8c0606, inset 0 5px 0 rgba(255, 255, 255, 0.22);
-	background-color: #ebeef3;
+	box-shadow: 1px 3px 0 #8c0606, inset 0 5px 0 var(--btn-shadow);
 	background-image: linear-gradient(-38deg, #cf1d37 0%, #cf1d37 1%, #f05036 100%);
 }
+
 .editor-options .arrows-up-down {
-	box-shadow: 1px 3px 0 #048b97, inset 0 5px 0 rgba(255, 255, 255, 0.22);
-	background-color: #ebeef3;
+	box-shadow: 1px 3px 0 #048b97, inset 0 5px 0 var(--btn-shadow);
 	background-image: linear-gradient(-38deg, #66c4dc 0%, #40b1ce 50%, #0c98bb 100%);
 }

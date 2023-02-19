@@ -1,12 +1,10 @@
 'use strict'
 
-let gCanvas
-let gCtx
+let gCanvas = document.querySelector('canvas')
+let gCtx = gCanvas.getContext('2d')
 let gTask
 
 function renderMeme() {
-	gCanvas = document.querySelector('canvas')
-	gCtx = gCanvas.getContext('2d')
 	deleteLines()
 
 	isMemeAlreadySaved() ? setSaveMemeLines() : setRandomLines(2)
@@ -20,7 +18,7 @@ function addListeners() {
 	gCanvas.addEventListener('mousedown', onDown)
 	gCanvas.addEventListener('mousemove', onMove)
 	gCanvas.addEventListener('mouseup', onUp)
-	window.addEventListener('resize', renderMeme)
+	window.addEventListener('resize', resizeCanvas)
 	window.addEventListener('click', onClickPage)
 }
 

@@ -6,14 +6,3 @@
 .main-layout > * {
 	grid-column: 2;
 }
-
-body.show-meme-editor {
-	background-image: url(../../img/background1.png);
-	background-repeat: no-repeat;
-	background-position: center;
-	background-position-y: inherit;
-	background-blend-mode: color-dodge;
-	background-size: cover;
-	height: 100vh;
-	overflow-y: visible;
-}

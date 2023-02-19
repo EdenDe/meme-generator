@@ -75,13 +75,6 @@ function onFilter(value) {
 
 function onImg(imgId) {
 	setImg(imgId)
-	if (gSection === 'gallery') {
-		deleteLines()
-		setRandomLines(2)
-	} else {
-		setSaveMemeLines()
-	}
-
 	switchToMemeEditor()
 }
 
