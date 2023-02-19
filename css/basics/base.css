@@ -10,6 +10,8 @@ body {
 	overflow-x: hidden;
 	overflow-y: hidden;
 	background-color: var(--grey-clr2);
+	padding-top: 15px;
+	height: 100vh;
 }
 
 ul {

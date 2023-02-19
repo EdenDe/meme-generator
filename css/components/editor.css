@@ -1,10 +1,9 @@
 body.show-meme-editor {
 	background-image: url(../../img/background1.png);
 	background-repeat: no-repeat;
-	background-position: center;
-	background-position-y: inherit;
 	background-blend-mode: color-dodge;
 	overflow-y: auto;
+	background-size: cover;
 }
 
 body.show-meme-editor .meme-editor {
@@ -167,8 +166,6 @@ label[name='strokeColor']::after {
 	flex-basis: 45%;
 
 	color: var(--grey-clr-3);
-
-	font-size: 18px;
 	padding: 0 10px;
 }
 

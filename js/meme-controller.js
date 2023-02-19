@@ -8,7 +8,6 @@ function renderMeme() {
 	deleteLines()
 
 	isMemeAlreadySaved() ? setSaveMemeLines() : setRandomLines(2)
-	updateSelectedLineIdx(-1)
 
 	resizeCanvas()
 	addListeners()
@@ -54,12 +53,12 @@ function renderTxt() {
 	})
 }
 
-function drawText({ txt, size, fontColor, strokeColor, pos, align, fontFamily }) {
+function drawText({ txt, size, fontColor, strokeColor, pos, fontFamily }) {
 	gCtx.beginPath()
 	gCtx.fillStyle = fontColor
 	gCtx.strokeStyle = strokeColor
 	gCtx.font = `${size}px ${fontFamily}`
-	gCtx.textAlign = align
+	gCtx.textAlign = 'center'
 
 	gCtx.fillText(txt, pos.x, pos.y)
 	gCtx.strokeText(txt, pos.x, pos.y)
@@ -102,7 +101,22 @@ function onAddtxt() {
 function onChangeAlign(elBtn) {
 	document.querySelector('.btn-align-active').classList.remove('btn-align-active')
 	elBtn.classList.add('btn-align-active')
-	updateLine('align', elBtn.dataset.align)
+	const align = elBtn.dataset.align
+
+	const { pos, txt, size, fontFamily } = getSelectedLine()
+	gCtx.font = size + 'px ' + fontFamily
+
+	const halfTextWidth = gCtx.measureText(txt).width / 2
+
+	if (align === 'right') {
+		pos.x = gCanvas.width - halfTextWidth - 10
+	} else if (align === 'left') {
+		pos.x = 10 + halfTextWidth
+	} else {
+		pos.x = gCanvas.width / 2
+	}
+
+	updateLine('pos', pos)
 	renderCanvas()
 }
 
@@ -219,7 +233,7 @@ function isTextClicked({ x, y }) {
 		updateSelectedLineIdx(index)
 		const { xStart, yStart, xEnd, yEnd } = getTextBlock()
 
-		if (xStart < x && x < xEnd && yStart < y && y < yEnd) {
+		if (xStart - 20 < x && x < xEnd + 20 && yStart - 20 < y && y < yEnd + 20) {
 			return true
 		}
 	}
@@ -235,7 +249,7 @@ function getTextBlock() {
 	let textHeight = gCtx.measureText(txt).fontBoundingBoxAscent + gCtx.measureText(txt).actualBoundingBoxDescent
 
 	let xStart = pos.x
-	if (align === 'right') xStart -= textWidth
+	// if (align === 'right') xStart -= textWidth
 	if (align === 'center') xStart -= textWidth / 2
 
 	return {

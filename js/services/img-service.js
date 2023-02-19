@@ -56,17 +56,27 @@ function _createGallery() {
 }
 
 function onImgUpload(ev) {
-	loadImageFromInput(ev, renderImg)
+	loadImageFromInput(ev)
 }
 
-function loadImageFromInput(ev, onImageReady) {
+function addImg(imgSrc) {
+	const newImg = {
+		id: makeId(),
+		imgSrc,
+		keywords: [],
+	}
+	gImgs.push(newImg)
+	_saveImgsToStorage()
+	return newImg.id
+}
+
+function loadImageFromInput(ev) {
 	const reader = new FileReader()
 
 	reader.onload = function (event) {
-		let img = new Image()
-		img.src = event.target.result
-		setImg(event.target.result)
-		img.onload = () => onImageReady(img)
+		const id = addImg(event.target.result)
+		setImg(id)
+		renderCanvas()
 	}
 	reader.readAsDataURL(ev.target.files[0])
 }

@@ -24,6 +24,7 @@
 				<section class="gallery-options">
 					<div class="input-container">
 						<input placeholder="search" list="keywords" oninput="onFilter(this.value)" />
+						<div></div>
 					</div>
 					<datalist id="keywords"> </datalist>
 					<div class="keywords"></div>
@@ -47,9 +48,9 @@
 						<div class="text-style-line1">
 							<button class="btn fontsize fontsize-plus" onclick="onChangeSize(2)">A</button>
 							<button class="btn fontsize fontsize-minus" onclick="onChangeSize(-2)">A</button>
-							<button class="btn fa align-left" data-align="right" onclick="onChangeAlign(this)"></button>
+							<button class="btn fa align-left" data-align="left" onclick="onChangeAlign(this)"></button>
 							<button class="btn fa align-center btn-align-active" data-align="center" onclick="onChangeAlign(this)"></button>
-							<button class="btn fa align-right" data-align="left" onclick="onChangeAlign(this)"></button>
+							<button class="btn fa align-right" data-align="right" onclick="onChangeAlign(this)"></button>
 						</div>
 						<div class="text-style-line2">
 							<select onchange="onChangeFont(this)">

@@ -41,12 +41,15 @@ body.show-meme-editor .gallery {
 	min-width: 200px;
 }
 
-.gallery-options .input-container::after {
-	content: url(../../img/Forme_9.png);
-	font-family: fa;
+.gallery-options .input-container > div {
+	background-image: url(../../img/Forme_9.png);
 	position: absolute;
-	right: 1em;
-	top: 0.2em;
+	right: 15px;
+	top: 50%;
+	height: 25px;
+	width: 25px;
+	translate: 0 -50%;
+	background-size: cover;
 }
 
 .gallery-options input {
@@ -78,7 +81,7 @@ body.show-meme-editor .gallery {
 	justify-content: space-between;
 	gap: 10px;
 
-	margin-bottom: 50px;
+	margin-bottom: 5vh;
 }
 
 .gallery-options button {

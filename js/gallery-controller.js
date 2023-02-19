@@ -95,6 +95,12 @@ function onChangeSection(elLi) {
 	renderGallery()
 }
 
+function switchToMemeEditor() {
+	document.querySelector('li.active')?.classList.remove('active')
+	document.body.classList.add('show-meme-editor')
+	renderMeme()
+}
+
 function onToggleHamburger() {
 	document.body.classList.toggle('menu-open')
 }
@@ -111,10 +117,4 @@ function onFlexible() {
 	setImg(imgs[randomNum].id)
 
 	switchToMemeEditor()
-}
-
-function switchToMemeEditor() {
-	document.querySelector('li.active')?.classList.remove('active')
-	document.body.classList.add('show-meme-editor')
-	renderMeme()
 }
