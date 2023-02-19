@@ -17,10 +17,6 @@
 		border: none;
 	}
 
-	body {
-		overflow-y: auto;
-	}
-
 	header {
 		margin: 0 0 15px;
 		border-radius: 0;
@@ -72,18 +68,22 @@
 		border-radius: 10px;
 	}
 
+	.main-layout {
+		grid-template-columns: 10px 1fr 10px;
+	}
+}
+
+@media (max-width: 460px) {
+	body {
+		overflow-y: auto;
+	}
+
 	.image-gallery {
 		overflow-y: hidden;
 		gap: 10px;
 		height: auto;
 	}
 
-	.main-layout {
-		grid-template-columns: 10px 1fr 10px;
-	}
-}
-
-@media (max-width: 410px) {
 	.image-gallery img {
 		width: 100%;
 		height: auto;

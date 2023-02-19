@@ -49,6 +49,8 @@ body.show-meme-editor .meme-editor {
 
 .editor-options * {
 	border-radius: var(--btn-border-radius);
+	border: none;
+	font-size: 20px;
 }
 
 .editor-options > div:first-of-type {
@@ -66,7 +68,8 @@ body.show-meme-editor .meme-editor {
 .editor-options input[name='meme-txt'] {
 	background-color: var(--grey-clr-1);
 	width: 90%;
-	border: none;
+	font-size: 15px;
+	padding: 10px;
 	border-radius: 28px;
 	box-shadow: 0px 4px 0 #bbc4d1, inset 0 5px 0 var(--grey-clr-3);
 }
@@ -89,9 +92,7 @@ body.show-meme-editor .meme-editor {
 
 .text-style-continer select {
 	flex: 3;
-	border: none;
 
-	font-size: 20px;
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -106,8 +107,6 @@ body.show-meme-editor .meme-editor {
 label {
 	flex: 1;
 	height: clamp(40px, 4.5vh, 50px);
-	border: none;
-	font-size: 20px;
 }
 
 .text-style-continer .fontsize {
@@ -168,7 +167,7 @@ label[name='strokeColor']::after {
 	flex-basis: 45%;
 
 	color: var(--grey-clr-3);
-	font-family: inherit;
+
 	font-size: 18px;
 	padding: 0 10px;
 }

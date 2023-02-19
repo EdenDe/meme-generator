@@ -90,7 +90,6 @@ body.show-meme-editor .gallery {
 	border: none;
 	border-radius: 18px;
 	color: var(--grey-clr-2);
-	font-family: inherit;
 	box-shadow: 0 3px 6px 1px rgba(0, 0, 0, 0.15);
 }
 
@@ -126,4 +125,5 @@ body.show-meme-editor .gallery {
 .gallery-options .keywords span {
 	color: var(--grey-clr-2);
 	margin-inline-end: 5px;
+	cursor: pointer;
 }

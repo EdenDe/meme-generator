@@ -4,7 +4,7 @@ let gSection = 'gallery'
 
 function onInit() {
 	renderGallery()
-	window.addEventListener('resize', createKeywordMap)
+	window.addEventListener('resize', renderKeywordMap)
 }
 
 function renderGallery() {
@@ -21,11 +21,11 @@ function renderGallery() {
 		)
 		.join('')
 
-	createDataList()
-	createKeywordMap()
+	renderDataList()
+	renderKeywordMap()
 }
 
-function createKeywordMap() {
+function renderKeywordMap() {
 	const keywords = getKeywordSearchCountMap()
 	const keywordBtn = document.querySelector('.btn-more-keywords')?.dataset.show || 'more'
 
@@ -41,7 +41,7 @@ function createKeywordMap() {
 	for (const key in keywords) {
 		let fontSize = minFont
 		if (keywords[key] > 0) fontSize = (keywords[key] / maxNum) * (maxFont - minFont) + minFont
-		keywordContainer.innerHTML += `<span data-fontsize="${fontSize}px">${key}</span>`
+		keywordContainer.innerHTML += `<span onclick="onFilter('${key}')" data-fontsize="${fontSize}px">${key}</span>`
 	}
 
 	document.querySelectorAll('span[data-fontsize]').forEach(elSpan => {
@@ -58,18 +58,18 @@ function createKeywordMap() {
 	}
 }
 
-function onMoreKeywords(elBtn) {
-	elBtn.dataset.show = elBtn.dataset.show === 'close' ? 'more' : 'close'
-	createKeywordMap()
-}
-
-function createDataList() {
+function renderDataList() {
 	const keywords = getUniqueKeywordList()
 	document.querySelector('#keywords').innerHTML = keywords.map(keyword => `<option>${keyword}</option>`)
 }
 
-function onFilter(value) {
-	setSearchFilter(value)
+function onMoreKeywords(elBtn) {
+	elBtn.dataset.show = elBtn.dataset.show === 'close' ? 'more' : 'close'
+	renderKeywordMap()
+}
+
+function onFilter(keyword) {
+	setSearchFilter(keyword)
 	renderGallery()
 }
 
@@ -78,20 +78,19 @@ function onImg(imgId) {
 	switchToMemeEditor()
 }
 
-function switchToMemeEditor() {
-	document.querySelector('li.active')?.classList.remove('active')
-	document.body.classList.add('show-meme-editor')
-	renderMeme()
+function onLogo() {
+	const elLi = document.querySelector('[data-show="gallery"]')
+	onChangeSection(elLi)
 }
 
-function onChangeSection(elI) {
+function onChangeSection(elLi) {
 	if (document.body.classList.contains('show-meme-editor')) {
 		document.body.classList.remove('show-meme-editor')
 	}
 
 	document.querySelector('li.active')?.classList.remove('active')
-	elI.classList.add('active')
-	gSection = elI.dataset.show
+	elLi.classList.add('active')
+	gSection = elLi.dataset.show
 
 	renderGallery()
 }
@@ -112,4 +111,10 @@ function onFlexible() {
 	setImg(imgs[randomNum].id)
 
 	switchToMemeEditor()
+}
+
+function switchToMemeEditor() {
+	document.querySelector('li.active')?.classList.remove('active')
+	document.body.classList.add('show-meme-editor')
+	renderMeme()
 }
