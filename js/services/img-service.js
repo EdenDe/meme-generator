@@ -3,6 +3,26 @@
 const STORAGE_IMGS_KEY = 'imgsDB'
 let gImgs
 let gSearchImgFilter
+const imgKeyword = [
+	['politics', 'man', 'person'],
+	['animals', 'dogs', 'love'],
+	['animals', 'dogs', 'love', 'baby', 'sleep'],
+	['animals', 'cats', 'sleep'],
+	['success', 'cute', 'baby'],
+	['person', 'man'],
+	['funny', 'baby', 'person'],
+	['person', 'man'],
+	['funny', 'person', 'baby'],
+	['politics', 'man', 'person'],
+	['love', 'man', 'person'],
+	['person', 'man'],
+	['person', 'man'],
+	['person', 'man'],
+	['person', 'man'],
+	['person', 'man', 'funny'],
+	['person', 'man', 'politics'],
+	['person', 'man', 'toys'],
+]
 
 _createGallery()
 
@@ -30,7 +50,7 @@ function _createGallery() {
 		gImgs.push({
 			id: makeId(),
 			imgSrc: `img/${index}.jpg`,
-			keywords: keywords[index - 1],
+			keywords: imgKeyword[index - 1],
 		})
 	}
 	_saveImgsToStorage()
@@ -67,24 +87,3 @@ function getUniqueKeywordList() {
 
 	return filterdKeyWords
 }
-
-const imgKeyword = [
-	['politics', 'man', 'person'],
-	['animals', 'dogs', 'love'],
-	['animals', 'dogs', 'love', 'baby', 'sleep'],
-	['animals', 'cats', 'sleep'],
-	['success', 'cute', 'baby'],
-	['person', 'man'],
-	['funny', 'baby', 'person'],
-	['person', 'man'],
-	['funny', 'person', 'baby'],
-	['politics', 'man', 'person'],
-	['love', 'man', 'person'],
-	['person', 'man'],
-	['person', 'man'],
-	['person', 'man'],
-	['person', 'man'],
-	['person', 'man', 'funny'],
-	['person', 'man', 'politics'],
-	['person', 'man', 'toys'],
-]
