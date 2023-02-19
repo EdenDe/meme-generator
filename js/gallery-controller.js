@@ -8,9 +8,7 @@ function onInit() {
 }
 
 function renderGallery() {
-	let imgs
-	if (gSection === 'gallery') imgs = getImgs()
-	else imgs = getMemes()
+	let imgs = gSection === 'gallery' ? getImgs() : getMemes()
 
 	document.querySelector('.image-gallery').innerHTML = imgs
 		.map(
@@ -90,7 +88,6 @@ function onImg(imgId) {
 function switchToMemeEditor() {
 	document.querySelector('li.active')?.classList.remove('active')
 	document.body.classList.add('show-meme-editor')
-
 	renderMeme()
 }
 

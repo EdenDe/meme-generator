@@ -1,5 +1,41 @@
 'use strict'
 
+const STORAGE_IMGS_KEY = 'imgsDB'
+let gImgs
+let gSearchImgFilter
+
+_createGallery()
+
+function getImgs() {
+	if (!gSearchImgFilter) return gImgs
+	return gImgs.filter(img => img.keywords.some(word => word.startsWith(gSearchImgFilter)))
+}
+
+function getImgById(id) {
+	let img = gImgs.find(img => img.id === id)
+	if (!img) img = gSavedMemeDataURL.find(img => img.id === id)
+	return img
+}
+
+function _saveImgsToStorage() {
+	saveToStorage(STORAGE_IMGS_KEY, gImgs)
+}
+
+function _createGallery() {
+	gImgs = loadFromStorage(STORAGE_IMGS_KEY) || []
+	if (gImgs.length > 0) return
+	const keywords = getKeywords()
+
+	for (let index = 1; index <= 18; index++) {
+		gImgs.push({
+			id: makeId(),
+			imgSrc: `img/${index}.jpg`,
+			keywords: keywords[index - 1],
+		})
+	}
+	_saveImgsToStorage()
+}
+
 function onImgUpload(ev) {
 	loadImageFromInput(ev, renderImg)
 }

@@ -20,10 +20,11 @@ header nav {
 }
 
 .main-menu {
-	list-style: none;
 	display: flex;
+	list-style: none;
 	padding-inline-start: 0px;
 }
+
 .main-menu > li:first-child {
 	margin-inline-end: 30px;
 }
@@ -44,20 +45,19 @@ header nav {
 }
 
 /* when menu-open */
-
 body.menu-open .btn-ham {
 	background-color: transparent;
 	border: none;
 }
 
 body.menu-open .main-menu > * {
+	justify-self: start;
+	align-self: center;
+
 	padding: 5px;
 	width: fit-content;
 	height: fit-content;
 	text-align: center;
-
-	justify-self: start;
-	align-self: center;
 }
 
 body.menu-open .main-menu {

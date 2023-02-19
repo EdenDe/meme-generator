@@ -1,6 +1,5 @@
 'use strict'
 
-const STORAGE_IMGS_KEY = 'imgsDB'
 const STORAGE_MEMES_KEY = 'memesDB'
 const memeStrings = [
 	'110 tabs open',
@@ -21,17 +20,15 @@ const memeStrings = [
 ]
 
 let gKeywordSearchCountMap = { funny: 4, person: 2, animals: 10, baby: 3, cats: 1, sleep: 12 }
-let gImgs
+let gSavedMemeDataURL
+
 let gMeme = {
 	selectedImgId: null,
 	selectedLineIdx: -1,
 	currentLineStartPos: null,
 	lines: [],
 }
-let gSavedMemeDataURL
-let gSearchImgFilter
 
-_createGallery()
 _createMemes()
 
 function getKeywordSearchCountMap() {
@@ -42,23 +39,8 @@ function getMemeStrings() {
 	return memeStrings
 }
 
-function getImgs() {
-	if (!gSearchImgFilter) return gImgs
-	return gImgs.filter(img => img.keywords.some(word => word.startsWith(gSearchImgFilter)))
-}
-
-function setSaveMemeLines() {
-	deleteLines()
-	const meme = gSavedMemeDataURL.find(meme => meme.id === gMeme.selectedImgId)
-	meme.lines.forEach(line => {
-		setNewLine(line)
-	})
-}
-
-function getImgById(id) {
-	let img = gImgs.find(img => img.id === id)
-	if (!img) img = gSavedMemeDataURL.find(img => img.id === id)
-	return img
+function getCurrentLineStartPos() {
+	return gMeme.currentLineStartPos
 }
 
 function getMemes() {
@@ -73,10 +55,12 @@ function getSelectedLine() {
 	return gMeme.lines[gMeme.selectedLineIdx]
 }
 
-function deleteLines() {
-	gMeme.selectedLineIdx = -1
-	gMeme.lines = []
-	gMeme.currentLineStartPos = null
+function setSaveMemeLines() {
+	deleteLines()
+	const meme = gSavedMemeDataURL.find(meme => meme.id === gMeme.selectedImgId)
+	meme.lines.forEach(line => {
+		setNewLine(line)
+	})
 }
 
 function setRandomLines(howMany = 2) {
@@ -98,25 +82,6 @@ function setImg(imgId) {
 
 function setCurrentLineStartPos(startPos) {
 	gMeme.currentLineStartPos = startPos
-}
-
-function getCurrentLineStartPos() {
-	return gMeme.currentLineStartPos
-}
-
-function deleteTxt() {
-	gMeme.lines.splice(gMeme.selectedLineIdx, 1)
-	updateSelectedLineIdx(gMeme.lines.length > 0 ? 0 : -1)
-}
-
-function updateSelectedLineIdx(selectedLine) {
-	gMeme.selectedLineIdx = selectedLine
-}
-
-function updateLine(key, value) {
-	const currentLine = gMeme.lines[gMeme.selectedLineIdx]
-	if (!currentLine) return
-	currentLine[key] = value
 }
 
 function setNewLine(line) {
@@ -146,32 +111,29 @@ function setSearchFilter(value) {
 	gKeywordSearchCountMap[value]++
 }
 
-function _saveImgsToStorage() {
-	saveToStorage(STORAGE_IMGS_KEY, gImgs)
+function deleteLines() {
+	gMeme.selectedLineIdx = -1
+	gMeme.lines = []
+	gMeme.currentLineStartPos = null
 }
 
-function _createGallery() {
-	gImgs = loadFromStorage(STORAGE_IMGS_KEY) || []
-	if (gImgs.length > 0) return
-	const keywords = getKeywords()
-
-	for (let index = 1; index <= 18; index++) {
-		gImgs.push({
-			id: makeId(),
-			imgSrc: `img/${index}.jpg`,
-			keywords: keywords[index - 1],
-		})
-	}
-	_saveImgsToStorage()
+function deleteTxt() {
+	gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+	updateSelectedLineIdx(gMeme.lines.length > 0 ? 0 : -1)
 }
 
-function moveTxt(dx, dy) {
-	gMeme.lines[gMeme.selectedLineIdx].pos.x += dx
-	gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
+function updateLine(key, value) {
+	const currentLine = gMeme.lines[gMeme.selectedLineIdx]
+	if (!currentLine) return
+	currentLine[key] = value
 }
 
-function _createMemes() {
-	gSavedMemeDataURL = loadFromStorage(STORAGE_MEMES_KEY) || []
+function updateSelectedLineIdx(selectedLine) {
+	gMeme.selectedLineIdx = selectedLine
+}
+
+function isMemeAlreadySaved() {
+	return gSavedMemeDataURL.some(meme => meme.id === gMeme.selectedImgId)
 }
 
 function saveMeme(memeDataURL) {
@@ -190,6 +152,15 @@ function saveMeme(memeDataURL) {
 		lines: gMeme.lines,
 	}
 	_saveMemesToStorage()
+}
+
+function moveTxt(dx, dy) {
+	gMeme.lines[gMeme.selectedLineIdx].pos.x += dx
+	gMeme.lines[gMeme.selectedLineIdx].pos.y += dy
+}
+
+function _createMemes() {
+	gSavedMemeDataURL = loadFromStorage(STORAGE_MEMES_KEY) || []
 }
 
 function _saveMemesToStorage() {

@@ -7,10 +7,13 @@ let gTask
 function renderMeme() {
 	gCanvas = document.querySelector('canvas')
 	gCtx = gCanvas.getContext('2d')
+	deleteLines()
+
+	isMemeAlreadySaved() ? setSaveMemeLines() : setRandomLines(2)
+	updateSelectedLineIdx(-1)
+
 	resizeCanvas()
 	addListeners()
-	updateSelectedLineIdx(-1)
-	renderCanvas()
 }
 
 function addListeners() {
@@ -18,6 +21,7 @@ function addListeners() {
 	gCanvas.addEventListener('mousemove', onMove)
 	gCanvas.addEventListener('mouseup', onUp)
 	window.addEventListener('resize', renderMeme)
+	window.addEventListener('click', onClickPage)
 }
 
 function renderCanvas() {
@@ -32,8 +36,10 @@ function renderImgFromlocal() {
 	img.src = imgSrc
 	img.onload = () => {
 		gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
+
 		renderTxt()
 		if (!gTask) return
+
 		if (gTask === 'download') {
 			downloadMeme()
 		} else if (gTask === 'save') {
@@ -118,7 +124,6 @@ function onToggleTxt() {
 	const { selectedLineIdx, lines } = getMeme()
 	if (selectedLineIdx + 1 === lines.length) updateSelectedLineIdx(0)
 	else updateSelectedLineIdx(selectedLineIdx + 1)
-
 	renderCanvas()
 }
 
@@ -175,11 +180,6 @@ function onSaveMeme() {
 	renderCanvas()
 }
 
-function saveImgMeme() {
-	const imgContent = gCanvas.toDataURL('image/jpeg')
-	saveMeme(imgContent)
-}
-
 function onChangeFont(elSelect) {
 	updateLine('fontFamily', elSelect.value)
 	renderCanvas()
@@ -188,6 +188,30 @@ function onChangeFont(elSelect) {
 function onPickStokeColor(elColor) {
 	updateLine('strokeColor', elColor.value)
 	document.querySelector('.label-stroke-color').style.color = elColor.value
+	renderCanvas()
+}
+
+function onClickPage(event) {
+	if (event.target.classList.contains('meme-editor')) {
+		document.body.style.cursor = 'default'
+		updateSelectedLineIdx(-1)
+		renderCanvas()
+	}
+}
+
+function onFacebookShare() {
+	const imgDataUrl = gCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
+	function onSuccess(uploadedImgUrl) {
+		const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+		console.log(encodedUploadedImgUrl)
+		window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
+	}
+	doUploadImg(imgDataUrl, onSuccess)
+}
+
+function onDownloadMeme() {
+	gTask = 'download'
+	updateSelectedLineIdx(-1)
 	renderCanvas()
 }
 
@@ -228,52 +252,25 @@ function resizeCanvas() {
 	const elContainer = document.querySelector('.canvas-container')
 	gCanvas.width = elContainer.offsetWidth
 	gCanvas.height = elContainer.offsetHeight
-
 	renderCanvas()
 }
 
 function getEvPos(ev) {
-	let pos = {
+	return {
 		x: ev.offsetX,
 		y: ev.offsetY,
 	}
-	return pos
 }
 
-function renderImg(img) {
-	gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
-}
-
-function onDownloadMeme() {
-	gTask = 'download'
-	updateSelectedLineIdx(-1)
-	renderCanvas()
+function saveImgMeme() {
+	const imgContent = gCanvas.toDataURL('image/jpeg')
+	saveMeme(imgContent)
 }
 
 function downloadMeme() {
 	const elLink = document.querySelector('.a-download')
 	const imgContent = gCanvas.toDataURL('image/jpeg')
 	elLink.href = imgContent
-}
-
-window.addEventListener('click', onClickPage)
-
-function onClickPage(event) {
-	if (event.target.classList.contains('meme-editor')) {
-		document.body.style.cursor = 'default'
-		updateSelectedLineIdx(-1)
-		renderCanvas()
-	}
-}
-
-function onFacebookShare() {
-	const imgDataUrl = gCanvas.toDataURL('image/jpeg') // Gets the canvas content as an image format
-	function onSuccess(uploadedImgUrl) {
-		const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-		console.log(encodedUploadedImgUrl)
-		window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
-	}
-	doUploadImg(imgDataUrl, onSuccess)
 }
 
 function doUploadImg(imgDataUrl, onSuccess) {

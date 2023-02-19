@@ -1,23 +1,22 @@
 body.show-meme-editor .meme-editor {
 	display: flex;
 	flex-wrap: wrap;
+	align-items: center;
 	justify-content: center;
 	gap: max(30px, 5vw);
+	margin-top: 30px;
 }
 
 .meme-editor {
 	display: none;
-	margin-top: 30px;
-	align-items: center;
 }
 
 .canvas-container {
 	width: 450px;
 	height: 450px;
-	box-shadow: 1px 5px 0 #bbc4d1, inset 0 5px 0 #ffffff;
-	box-shadow: 0px 0px 0px 4px #bbc4;
 	border-radius: 10px;
 	overflow: hidden;
+	box-shadow: 0px 0px 0px 4px #bbc4;
 }
 
 .editor-options {
@@ -58,35 +57,36 @@ body.show-meme-editor .meme-editor {
 }
 
 .text-style-continer {
-	background-color: #19a59f;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
-	padding: clamp(10px, 1vw, 20px);
-	border-radius: 10px;
 	position: relative;
 	width: 100%;
+	padding: clamp(10px, 1vw, 20px);
+	border-radius: 10px;
+	background-color: #19a59f;
 }
 
 .text-style-continer > * {
 	display: flex;
-	gap: 15px;
 	justify-content: space-between;
+	gap: 15px;
 }
 
 .text-style-continer select {
 	flex-grow: 1;
 	border: none;
 	border-radius: 10px;
-	text-transform: uppercase;
+
 	font-size: 20px;
 	text-align: center;
+	text-transform: uppercase;
 }
 
 .text-style-continer > div > * {
-	box-shadow: 1px 3px 0px 0px rgb(0 0 0 / 24%), inset 0 3px 0 rgb(255 255 255 / 20%);
-	background-color: #ffffff;
 	font-family: var(--poppins-bold);
+	background-color: #ffffff;
+	box-shadow: 1px 3px 0px 0px rgb(0 0 0 / 24%), inset 0 3px 0 rgb(255 255 255 / 20%);
 }
 
 .editor-options button,
@@ -150,17 +150,16 @@ label[name='strokeColor']::after {
 }
 
 .editor-options .action > *:not(.file-input) {
-	color: white;
-	font-family: inherit;
-	flex: 1;
-	flex-basis: 45%;
-
-	font-size: 18px;
-	padding: 0 10px;
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	flex: 1;
+	flex-basis: 45%;
+
+	color: white;
+	font-family: inherit;
+	font-size: 18px;
+	padding: 0 10px;
 }
 
 .editor-options .action > .btn-facebook-share {
