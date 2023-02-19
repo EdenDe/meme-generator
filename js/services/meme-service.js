@@ -86,18 +86,19 @@ function setCurrentLineStartPos(startPos) {
 
 function setNewLine(line) {
 	gMeme.selectedLineIdx++
-	let y = 150
-
-	if (gMeme.selectedLineIdx === 0) y = 80
-	else if (gMeme.selectedLineIdx === 1) y = 250
-
 	if (!line.fontFamily) line.fontFamily = 'Impact'
-	line.pos = {
-		x: 150,
-		y,
-	}
-
 	line.isDrag = false
+
+	if (!line.pos) {
+		let y = 150
+		if (gMeme.selectedLineIdx === 0) y = 80
+		else if (gMeme.selectedLineIdx === 1) y = 250
+
+		line.pos = {
+			x: 150,
+			y,
+		}
+	}
 
 	gMeme.lines.push(line)
 }
