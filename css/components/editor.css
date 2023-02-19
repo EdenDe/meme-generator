@@ -190,6 +190,19 @@ label[name='strokeColor']::after {
 	background-color: #25ab42;
 }
 
+.btn-save::before {
+	content: 'save';
+}
+
+.btn-save:disabled::before {
+	content: 'image saved';
+}
+
+.editor-options .action .btn-save:disabled {
+	background-color: grey;
+	cursor: default;
+}
+
 .editor-options .plus {
 	box-shadow: 1px 3px 0 #015d33, inset 0 5px 0 var(--btn-shadow);
 	background-image: linear-gradient(-38deg, #42eb5c 0%, #37b34a 100%);

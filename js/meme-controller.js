@@ -188,11 +188,9 @@ function onDeleteTxt() {
 
 function onSaveMeme(elBtn) {
 	elBtn.disabled = true
-	elBtn.innerHTML = 'image saved'
 
 	setTimeout(() => {
 		elBtn.disabled = false
-		elBtn.innerHTML = 'save'
 	}, 10000)
 
 	gTask = 'save'
