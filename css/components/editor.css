@@ -163,7 +163,7 @@ label[name='strokeColor']::after {
 	align-items: center;
 	flex: 1;
 	flex-basis: 45%;
-
+	cursor: pointer;
 	color: var(--grey-clr-3);
 	padding: 0 10px;
 }
