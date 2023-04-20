@@ -1,6 +1,8 @@
 <h1>Meme generetor </h1>
 
-<p>Small project to practice html canvas and responsive design</p>
+<p>Small project to practice html canvas and responsive design.</p>
+
+<p>Built using vanilla javaScript and canvas</p>
 
 ![image](https://user-images.githubusercontent.com/93701509/233450096-04c99312-375b-4623-afe1-7542a8776160.png)
 
